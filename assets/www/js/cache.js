@@ -1,7 +1,7 @@
 function Application() {}
 
 Application.prototype.setRootPage = function(url) {
-    var replaceRes = function() {
+    var replaceResources = function() {
         var frameDoc = $("#main")[0].contentDocument;
         // links rel
         $('link', frameDoc).each(function() {
@@ -27,7 +27,7 @@ Application.prototype.setRootPage = function(url) {
     };
     var gotPath = function(cachedPage) {
         $('#main').one('load', function() {
-            replaceRes();
+            replaceResources();
         });
         $('#main').attr('src', cachedPage.file);
         currentHistoryIndex += 1;
@@ -37,9 +37,9 @@ Application.prototype.setRootPage = function(url) {
 //        noConnectionMsg();
 //        navigator.app.exitApp();
     }
-    //window.plugins.urlCache.getCachedPathForURI(url, gotPath, gotError);
-    $('#main').attr('src', url);
-    currentHistoryIndex += 1;
+    window.plugins.urlCache.getCachedPathForURI(url, gotPath, gotError);
+//    $('#main').attr('src', url);
+//    currentHistoryIndex += 1;
     
 }
 
