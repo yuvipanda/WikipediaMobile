@@ -61,7 +61,7 @@ public final class URLCache extends Plugin {
 						u = new URL(uri);
 						URLConnection urlConnection = u.openConnection();
 						urlConnection.setRequestProperty("Application_Version", "Wikipedia Mobile/1.0.0");
-						dis = new DataInputStream(new BufferedInputStream(urlConnection.getInputStream()));
+						dis = new DataInputStream(new BufferedInputStream(urlConnection.getInputStream(), 8192));
 						out = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
 						while ((length = dis.read(buffer)) != -1) {
 							out.write(buffer, 0, length);
@@ -71,11 +71,11 @@ public final class URLCache extends Plugin {
 						result.put("status", 0);
 					} catch (MalformedURLException e) {
 						status = PluginResult.Status.MALFORMED_URL_EXCEPTION;
-						result.put("message", "MalformedURLException");
+						result.put("message", "MalformedURLException "+uri);
 						result.put("status", status.ordinal());
 					} catch (IOException e) {
 						status = PluginResult.Status.IO_EXCEPTION;
-						result.put("message", "IOException");
+						result.put("message", "IOException "+uri);
 						result.put("status", status.ordinal());
 					} finally {
 						try {
@@ -83,7 +83,7 @@ public final class URLCache extends Plugin {
 							out.close();
 						} catch (IOException e) {
 							status = PluginResult.Status.IO_EXCEPTION;
-							result.put("message", "IOException");
+							result.put("message", "IOException "+uri);
 							result.put("status", status.ordinal());
 						}
 					}
@@ -96,7 +96,7 @@ public final class URLCache extends Plugin {
 		} catch (JSONException e1) {
 			status = PluginResult.Status.JSON_EXCEPTION;
 			try {
-				result.put("message", "JSONException");
+				result.put("message", "JSONException "+uri);
 				result.put("status", status.ordinal());
 			} catch(JSONException e2) {
 				// very bad if this happens

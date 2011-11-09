@@ -17,9 +17,11 @@ Application.prototype.setRootPage = function(url) {
         });
 
         // images
-        $('img', frameDoc).each(function() {
+        $('img,script', frameDoc).each(function() {
             var em = $(this);
             var gotLinkPath = function(linkPath) {
+                if(em.attr('type') == "text/javascript")
+                console.log(linkPath.file);
                 em.attr('src', linkPath.file);
             }
             window.plugins.urlCache.getCachedPathForURI(this.src.replace('file:', 'http:'), gotLinkPath, gotError);
@@ -38,9 +40,6 @@ Application.prototype.setRootPage = function(url) {
 //        navigator.app.exitApp();
     }
     window.plugins.urlCache.getCachedPathForURI(url, gotPath, gotError);
-//    $('#main').attr('src', url);
-//    currentHistoryIndex += 1;
-    
 }
 
 var app = new Application();

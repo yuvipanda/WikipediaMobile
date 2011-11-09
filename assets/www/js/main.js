@@ -46,9 +46,10 @@ function hideMobileLinks() {
 
     // Internal links
     $('a[href^="/wiki/"]', frameDoc).click(function(e) {
+        e.preventDefault();
         showSpinner();
         $('#search').addClass('inProgress');
-        currentHistoryIndex += 1;
+        app.setRootPage(this.href);
     });
 
     // External links
