@@ -1,4 +1,4 @@
-function addToHistory(url) {    
+function addToHistory() {    
     var frameDoc = $("#main")[0].contentDocument;
     var title = frameDoc.title;
     var url = $('html', frameDoc).attr('orig_src');
