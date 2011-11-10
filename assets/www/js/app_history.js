@@ -1,5 +1,7 @@
 function addToHistory(url) {    
-    var title = $("#main")[0].contentDocument.title;
+    var frameDoc = $("#main")[0].contentDocument;
+    var title = frameDoc.title;
+    var url = $('html', frameDoc).attr('orig_src');
     var index = title.indexOf(" - Wikipedia, the free encyclopedia");
 
     if (index > 0) {

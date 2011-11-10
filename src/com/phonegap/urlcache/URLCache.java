@@ -51,6 +51,12 @@ public final class URLCache extends Plugin {
 
 		try {
 			uri = args.getString(0);
+			
+			if(uri.startsWith("file://")) {
+				result.put("file", uri);
+				result.put("status", 0);
+				return new PluginResult(status, result);
+			}
 
 			if(uri != null && action.equals("getCachedPage")) {
 				try {
@@ -172,6 +178,8 @@ public final class URLCache extends Plugin {
 		Document doc = db.parse(urlConnection.getInputStream());
 		
 		doc.getDocumentElement().normalize();
+		
+		doc.getDocumentElement().setAttribute("orig_src", url);
 		
 		NodeList nodeList = doc.getElementsByTagName("img");
 		

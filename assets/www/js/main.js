@@ -68,6 +68,7 @@ function iframeOnLoaded(iframe) {
     if(iframe.src) {
         window.scroll(0,0);
         hideMobileLinks();
+        addToHistory();
         toggleForward();
         toggleProgress();
         hideSpinner();

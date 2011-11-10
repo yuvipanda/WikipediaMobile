@@ -2,11 +2,7 @@ function Application() {}
 
 Application.prototype.loadAndCachePage = function(url) {
     var gotCachedPage = function(cachedPage) {
-        $('#main').one('load', function() {
-            addToHistory(url);
-        });
         $('#main').attr('src', cachedPage.file);
-        var frameDoc = $('#main').get(0).contentDocument;
         currentHistoryIndex += 1;
         window.history.pushState({page: currentHistoryIndex}, "", cachedPage.file);
     }

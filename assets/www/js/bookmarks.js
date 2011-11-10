@@ -22,8 +22,9 @@ function isBookmarksMaxLimit() {
 }
 
 function addBookmarkPrompt() {
-	var titleToBookmark = $("#main").get(0).contentDocument.title;
-	var urlToBookmark = $("#main").get(0).contentWindow.location.href;
+    var frameDoc = $('#main').get(0).contentDocument;
+	var titleToBookmark = frameDoc.title;
+    var urlToBookmark = $('html', frameDoc).attr('orig_src');
 	var index = titleToBookmark.indexOf(" - Wikipedia, the free encyclopedia"); // @fixme -- horribly wrong!
 
 	if (index > 0) {
