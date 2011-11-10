@@ -45,11 +45,11 @@ function hideMobileLinks() {
     $('#footmenu', frameDoc).css('display', 'none');
 
     // Internal links
-    $('a[href^="/wiki/"]', frameDoc).click(function(e) {
-        e.preventDefault();
+    $('a[href*="/wiki/"]', frameDoc).click(function(e) {
+        //e.preventDefault();
         showSpinner();
         $('#search').addClass('inProgress');
-        app.setRootPage(this.href);
+        //app.loadAndCachePage(this.href);
     });
 
     // External links
@@ -73,8 +73,8 @@ function iframeOnLoaded(iframe) {
         hideMobileLinks();
         toggleForward();
         addToHistory();
-        $('#search').removeClass('inProgress');        
-        hideSpinner();  
+        $('#search').removeClass('inProgress');
+        hideSpinner();
         console.log('currentHistoryIndex '+currentHistoryIndex + ' history length '+history.length);
     }
 }
@@ -103,9 +103,9 @@ function loadWikiContent() {
     var historyDB = new Lawnchair({name:"historyDB"}, function() {
       this.all(function(history){
         if(history.length==0 || window.history.length > 1) {
-            app.setRootPage(currentLocale.url);
+            app.loadAndCachePage(currentLocale.url);
         } else {
-            app.setRootPage(history[history.length-1].value);
+            app.loadAndCachePage(history[history.length-1].value);
         }
       });
     });
