@@ -19,9 +19,6 @@ function onDeviceReady() {
     // the style needs to be explicitly set for logic used in the backButton handler
     $('#content').css('display', 'block');
 
-    // this has to be set for the window.history API to work properly
-    PhoneGap.UsePolling = true;
-    
     loadContent();
     setActiveState();
 }
@@ -46,10 +43,10 @@ function hideMobileLinks() {
 
     // Internal links
     $('a[href*="/wiki/"]', frameDoc).click(function(e) {
-        //e.preventDefault();
+        e.preventDefault();
         showSpinner();
         $('#search').addClass('inProgress');
-        //app.loadAndCachePage(this.href);
+        app.loadAndCachePage(this.href);
     });
 
     // External links
@@ -72,7 +69,6 @@ function iframeOnLoaded(iframe) {
         window.scroll(0,0);
         hideMobileLinks();
         toggleForward();
-        addToHistory();
         $('#search').removeClass('inProgress');
         hideSpinner();
         console.log('currentHistoryIndex '+currentHistoryIndex + ' history length '+history.length);
@@ -169,11 +165,7 @@ function goBack() {
     if ($('#content').css('display') == "block") {
         currentHistoryIndex -= 1;
         $('#search').addClass('inProgress');
-        window.history.go(-1);
-        if(currentHistoryIndex <= 0) {
-            console.log("no more history to browse exiting...");
-            navigator.app.exitApp();
-        }
+        $('#main')[0].contentWindow.history.back();
     }
 
     if ($('#bookmarks').css('display') == "block" || $('#history').css('display') == "block" || 
@@ -184,8 +176,10 @@ function goBack() {
 }
 
 function goForward() {
+    currentHistoryIndex += 1;
+    showSpinner();
     $('#search').addClass('inProgress');
-    window.history.go(1);
+    $('#main')[0].contentWindow.history.forward();
 }
 
 function lightweightNotification(text) {

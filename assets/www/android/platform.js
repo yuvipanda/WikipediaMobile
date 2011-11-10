@@ -73,7 +73,7 @@ function lightweightNotification(text) {
 
 //@Override
 function toggleForward() {
-    currentHistoryIndex < window.history.length ?
+    currentHistoryIndex + 1 < window.history.length ?
     $('#forwardCmd').attr('disabled', 'false') :
     $('#forwardCmd').attr('disabled', 'true');
 

@@ -163,9 +163,13 @@ public final class URLCache extends Plugin {
 			return filePath;
 		}
 		URL uri = new URL(url);
+		
+		URLConnection urlConnection = uri.openConnection();
+		urlConnection.setRequestProperty("Application_Version", "Wikipedia Mobile/1.0.0");
+		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
-		Document doc = db.parse(uri.openStream());
+		Document doc = db.parse(urlConnection.getInputStream());
 		
 		doc.getDocumentElement().normalize();
 		
