@@ -10,7 +10,7 @@ function addToHistory() {
         title = "Wikipedia, the free encyclopedia";
     }
     
-    if (url != "about:blank") {
+    if (url != undefined && url != "about:blank") {
         // let's add stuff to the history!
         isHistoryMaxLimit(title, url);
     }
