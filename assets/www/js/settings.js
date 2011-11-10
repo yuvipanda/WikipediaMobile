@@ -23,8 +23,6 @@ function showSettings() {
 
 function getLanguages() {
   
-    //$('#settings').addClass('inProgress');  
-             
     console.log("get languages");          
                            
     var requestUrl = "http://en.wikipedia.org/w/api.php?action=sitematrix&format=json";
@@ -73,8 +71,6 @@ function displayLanguages(results) {
     $('#settingsList').append(markup);
 
     showSettings();
-    //hideProgressLoader();
-    //$('#settings').removeClass('inProgress');
 }
 
 function onLocaleChanged(selectedValue) {

@@ -45,7 +45,7 @@ function hideMobileLinks() {
     $('a[href*="/wiki/"]', frameDoc).click(function(e) {
         e.preventDefault();
         showSpinner();
-        $('#search').addClass('inProgress');
+        toggleProgress();
         app.loadAndCachePage(this.href);
     });
 
@@ -69,7 +69,7 @@ function iframeOnLoaded(iframe) {
         window.scroll(0,0);
         hideMobileLinks();
         toggleForward();
-        $('#search').removeClass('inProgress');
+        toggleProgress();
         hideSpinner();
         console.log('currentHistoryIndex '+currentHistoryIndex + ' history length '+history.length);
     }
@@ -93,8 +93,7 @@ function loadContent() {
 
 function loadWikiContent() {
     showSpinner();
-    $('#search').addClass('inProgress');
-   
+    toggleProgress(); 
     // restore browsing to last visited page
     var historyDB = new Lawnchair({name:"historyDB"}, function() {
       this.all(function(history){
@@ -164,7 +163,8 @@ function goBack() {
 
     if ($('#content').css('display') == "block") {
         currentHistoryIndex -= 1;
-        $('#search').addClass('inProgress');
+        toggleProgress();
+        showSpinner();
         $('#main')[0].contentWindow.history.back();
     }
 
@@ -178,7 +178,7 @@ function goBack() {
 function goForward() {
     currentHistoryIndex += 1;
     showSpinner();
-    $('#search').addClass('inProgress');
+    toggleProgress();
     $('#main')[0].contentWindow.history.forward();
 }
 

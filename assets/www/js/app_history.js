@@ -69,9 +69,8 @@ function onHistoryItemClicked(url) {
     if (hasNetworkConnection()) {
         $('#searchParam').val('');
         showSpinner();  
-        $('#search').addClass('inProgress');
+        toggleProgress();
         app.loadAndCachePage(url);
-        //$('#main').attr('src', url);
         hideOverlayDivs();
         showContent();
     }else{

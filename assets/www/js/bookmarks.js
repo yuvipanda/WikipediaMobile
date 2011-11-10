@@ -22,8 +22,8 @@ function isBookmarksMaxLimit() {
 }
 
 function addBookmarkPrompt() {
-	var titleToBookmark = document.getElementById("main").contentDocument.title;
-	var urlToBookmark = document.getElementById("main").contentWindow.location.href;
+	var titleToBookmark = $("#main").get(0).contentDocument.title;
+	var urlToBookmark = $("#main").get(0).contentWindow.location.href;
 	var index = titleToBookmark.indexOf(" - Wikipedia, the free encyclopedia"); // @fixme -- horribly wrong!
 
 	if (index > 0) {
@@ -89,8 +89,8 @@ function onBookmarkItemClicked(url, index) {
 	if (hasNetworkConnection()) {
         $('#searchParam').val('');        
         showSpinner();  
-        $('#search').addClass('inProgress');
-		$('#main').attr('src', url);
+        toggleProgress();
+        app.loadAndCachePage(url);
 		hideOverlays();
 	}else{
 		noConnectionMsg();

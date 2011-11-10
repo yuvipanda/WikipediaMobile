@@ -6,6 +6,7 @@ Application.prototype.loadAndCachePage = function(url) {
             addToHistory(url);
         });
         $('#main').attr('src', cachedPage.file);
+        var frameDoc = $('#main').get(0).contentDocument;
         currentHistoryIndex += 1;
         window.history.pushState({page: currentHistoryIndex}, "", cachedPage.file);
     }

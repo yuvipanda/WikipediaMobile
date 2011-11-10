@@ -13,7 +13,7 @@ function search(isSuggestion) {
 		}
 		
 		showSpinner();
-        $('#search').addClass('inProgress');
+        toggleProgress();
 
 		var requestUrl = currentLocale.url + "/w/api.php?action=opensearch&";
 		requestUrl += "search=" + encodeURIComponent(searchParam) + "&";
@@ -86,7 +86,7 @@ function displayResults(results) {
 	
 	$('#resultList').html(formattedResults);
 
-    $('#search').removeClass('inProgress');
+    toggleProgress();
     hideSpinner();
 	hideOverlays();
 
@@ -134,7 +134,7 @@ function displaySuggestions(results) {
     
     $('#resultList').html(formattedResults);
 
-    $('#search').removeClass('inProgress');
+    toggleProgress();
     hideSpinner();
     hideOverlays();
 
@@ -146,7 +146,7 @@ function displaySuggestions(results) {
 function goToResult(article) {
 	if (hasNetworkConnection()) {
 	    showSpinner();
-        $('#search').addClass('inProgress');
+        toggleProgress();
 		var url = currentLocale.url + "/wiki/" + article;	
 		$('#main').attr('src', url);
 		hideOverlays();
@@ -163,4 +163,12 @@ function showSpinner() {
 function hideSpinner() {
 	$('.titlebar .spinner').css({display:'none'});	
 	$('#clearSearch').css({height:30});
+}
+
+function toggleProgress() {
+    if($('#search').hasClass('inProgress')) {
+        $('#search').removeClass('inProgress');
+    } else {
+        $('#search').addClass('inProgress');
+    }
 }
