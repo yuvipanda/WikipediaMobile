@@ -17,7 +17,14 @@ function showSettings() {
 	hideOverlayDivs();
 	hideContent();
 	$('#settings').localize().show();
+	$('form.item').bind('touchstart', widenHitArea);
 	setActiveState();                                   
+}
+
+function widenHitArea() {
+    console.log('focusing');
+    $('form.item').unbind('click', widenHitArea);
+	$(this).find('select').trigger('click');
 }
 
 function getLanguages() {
