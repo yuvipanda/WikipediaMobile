@@ -10,12 +10,12 @@ function geoNameSuccess(wikipediaUrl) {
 				if(data) {
 					app.navigateToPage('https://'+wikipediaUrl)
 				} else {
-					noConnectionMsg();
+					chrome.showNoConnectionMessage();
 					navigator.app.exitApp();
 				}
 			},
 			error: function(xhr) {
-				noConnectionMsg();
+				chrome.showNoConnectionMessage();
 			},
 			timeout: 3000
 		});

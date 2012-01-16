@@ -7,7 +7,7 @@ window.search = function() {
 		}
 		if (network.isConnected()) {
 			if (term == '') {
-				hideOverlays();
+				chrome.chrome.showContent();
 				return;
 			}
 
@@ -34,8 +34,8 @@ window.search = function() {
 				}
 			});
 		} else {
-			noConnectionMsg();
-			hideOverlays();
+			chrome.showNoConnectionMessage();
+			chrome.showContent();
 		}
 	}
 
@@ -44,11 +44,10 @@ window.search = function() {
 		var parent = $(this).parents(".listItemContainer");
 		var url = parent.attr("data-page-url");
 		app.navigateToPage(url);
-		hideOverlays();
 	}
 
 	function renderResults(results) {
-		setActiveState();
+		chrome.doFocusHack();
 
 		results = JSON.parse(results);
 		var template = templates.getTemplate('search-results-template');
@@ -76,37 +75,12 @@ window.search = function() {
 				});
 			});
 		});
-<<<<<<< HEAD
-	});
-
-	$('#search').removeClass('inProgress');
-	chrome.hideSpinner();
-	hideOverlays();
-
-	$('#searchresults').show();
-	//$('#content').hide();
-	hideContentIfNeeded();
-
-	
-}
-
-function goToResult(url) {
-	if (network.isConnected()) {
-		app.navigateToPage(url);
-		if (!twoColumnView()) {
-			hideOverlays();
-		}
-	} else {
-		noConnectionMsg();
-=======
 
 		$('#search').removeClass('inProgress');
 		chrome.hideSpinner();
-		hideOverlays();
+		chrome.hideOverlays();
 
 		$('#searchresults').show();
-		$('#content').hide();
->>>>>>> Moved search to its own object
 	}
 
 	return {
