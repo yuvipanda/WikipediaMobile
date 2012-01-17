@@ -87,10 +87,11 @@ window.chrome = function() {
 				return false;
 			});
 			$("#searchForm").bind('submit', function() {
-				search.performSearch($("#searchForm").val(), false);
+				search.performSearch($("#searchParam").val(), false);
 				return false;
 			}).bind('keypress', function() {
-				search.performSearch($("#searchForm").val(), true);
+				// Needed because .val doesn't seem to update instantly
+				setTimeout(function() { search.performSearch($("#searchParam").val(), true); }, 5);
 			});
 			$("#clearSearch").bind('touchstart', function() {
 				clearSearch();
@@ -137,7 +138,7 @@ window.chrome = function() {
 		$('#content').show();
 	}
 
-	function hidecontent() {  
+	function hideContent() {  
 		$('#mainHeader').hide();
 		$('#content').hide();
 	}
@@ -273,8 +274,9 @@ window.chrome = function() {
 		onPageLoaded: onPageLoaded,
 		hideOverlays: hideOverlays,
 		showContent: showContent,
-		hidecontent: hidecontent,
+		hideContent: hideContent,
 		addPlatformInitializer: addPlatformInitializer,
-		showNoConnectionMessage: showNoConnectionMessage
+		showNoConnectionMessage: showNoConnectionMessage,
+		doFocusHack: doFocusHack
 	};
 }();

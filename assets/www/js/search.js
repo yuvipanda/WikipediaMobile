@@ -1,13 +1,13 @@
 window.search = function() {
 	function performSearch(term, isSuggestion) {
 		if($('#search').hasClass('inProgress')) {
-			app.network.stopCurrentRequest();
+			network.stopCurrentRequest();
 			$('#search').removeClass('inProgress');
 			return;
 		}
 		if (network.isConnected()) {
 			if (term == '') {
-				chrome.chrome.showContent();
+				chrome.showContent();
 				return;
 			}
 
@@ -47,7 +47,6 @@ window.search = function() {
 	}
 
 	function renderResults(results) {
-		chrome.doFocusHack();
 
 		results = JSON.parse(results);
 		var template = templates.getTemplate('search-results-template');
@@ -80,6 +79,9 @@ window.search = function() {
 		chrome.hideSpinner();
 		chrome.hideOverlays();
 
+		$("#content").hide(); // Not chrome.hideContent() since we want the header
+
+		chrome.doFocusHack();
 		$('#searchresults').show();
 	}
 
