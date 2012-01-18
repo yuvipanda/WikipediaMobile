@@ -243,7 +243,7 @@ window.chrome = function() {
 
 			if (url.match(/^https?:\/\/([^\/]+)\.wikipedia\.org\/wiki\//)) {
 				// ...and load it through our intermediate cache layer.
-				navigateToPage(url);
+				app.navigateToPage(url);
 			} else {
 				// ...and open it in parent context for reals.
 				//
