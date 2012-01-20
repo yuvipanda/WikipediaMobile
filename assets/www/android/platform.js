@@ -81,15 +81,3 @@ function hasNetworkConnection()
 {
     return navigator.network.connection.type == Connection.NONE ? false : true;
 }
-
-//@Override
-function enableCaching() {
-	$(document).bind('offline', function() {
-		console.log('OFFLINE');
-		window.plugins.CacheMode.setCacheMode('LOAD_CACHE_ELSE_NETWORK');
-	});
-	$(document).bind('online', function() {
-		console.log('ONLINE');
-		window.plugins.CacheMode.setCacheMode('LOAD_DEFAULT');
-	});
-}

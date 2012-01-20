@@ -140,9 +140,13 @@ function goBack() {
 			navigator.app.exitApp();
 		} else {
 			console.log('going back to item ' + currentHistoryIndex + ': ' + pageHistory[currentHistoryIndex]);
+			// We're going to turn on the webview's cache before we navigate and turn it off afterwards
+			// This helps the back button work even when there is no network connection
+			window.plugins.CacheMode.setCacheMode('LOAD_CACHE_ELSE_NETWORK');
 			app.navigateToPage(pageHistory[currentHistoryIndex], {
 				updateHistory: false
 			});
+			window.plugins.CacheMode.setCacheMode('LOAD_DEFAULT');
 		}
 	} else {
 		// We're showing one of the overlays; cancel out of it.
