@@ -33,6 +33,9 @@ app = {
 		origUrl = origUrl || url;
 		console.log('hideAndLoad url ' + url);
 		console.log('hideAndLoad origUrl ' + origUrl);
+		// We're going to turn on the webview's cache before we navigate and turn it off afterwards
+		// This helps the back button work even when there is no network connection
+		window.plugins.CacheMode.setCacheMode('LOAD_CACHE_ELSE_NETWORK');
 		app.network.makeRequest({
 			url: url, 
 			success: function(data) {
@@ -54,6 +57,8 @@ app = {
 				$('#languageCmd').attr('disabled', 'true');
 			}
 		});
+		// Affects script execution otherwise
+		window.plugins.CacheMode.setCacheMode('LOAD_DEFAULT');
 	},
 	loadLocalPage: function(page) {
 		$('base').attr('href', 'file:///android_asset/www/');
@@ -176,8 +181,6 @@ app = {
 		if (options.updateHistory) {
 			currentHistoryIndex += 1;
 			pageHistory[currentHistoryIndex] = url;
-			// We're adding an entry to the 'forward/backwards' chain.
-			// So disable forward.
 		} 
 		console.log("navigating to " + url);
 		var savedPagesDB = new Lawnchair({name: "savedPagesDB"}, function() {
