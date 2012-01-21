@@ -47,11 +47,10 @@ function onDeviceReady() {
 }
 
 function loadContent() {
-	enableCaching();
 	window.loadFirstPage();
 }
 
-function enableCaching() {
+function setCaching(enabled) {
 	// do nothing by default
 }
 

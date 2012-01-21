@@ -35,7 +35,7 @@ app = {
 		console.log('hideAndLoad origUrl ' + origUrl);
 		// We're going to turn on the webview's cache before we navigate and turn it off afterwards
 		// This helps the back button work even when there is no network connection
-		window.plugins.CacheMode.setCacheMode('LOAD_CACHE_ELSE_NETWORK');
+		setCaching(true);
 		app.network.makeRequest({
 			url: url, 
 			success: function(data) {
@@ -58,7 +58,7 @@ app = {
 			}
 		});
 		// Affects script execution otherwise
-		window.plugins.CacheMode.setCacheMode('LOAD_DEFAULT');
+		setCaching(false);
 	},
 	loadLocalPage: function(page) {
 		$('base').attr('href', 'file:///android_asset/www/');

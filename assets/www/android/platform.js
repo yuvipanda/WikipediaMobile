@@ -81,3 +81,12 @@ function hasNetworkConnection()
 {
     return navigator.network.connection.type == Connection.NONE ? false : true;
 }
+
+//@Override
+function setCaching(enabled) {
+	if(enabled) {
+		window.plugins.CacheMode.setCacheMode('LOAD_CACHE_ELSE_NETWORK');
+	} else {
+		window.plugins.CacheMode.setCacheMode('LOAD_DEFAULT');
+	}
+}
