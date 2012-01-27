@@ -2270,40 +2270,42 @@ PhoneGap.addConstructor(function() {
  */
 
 // TODO: Needs to be commented
-
-if (!PhoneGap.hasResource("crypto")) {
-PhoneGap.addResource("crypto");
+//
+// XXX: This overrides our crypto.js, commenting out for now
+//
+//if (!PhoneGap.hasResource("crypto")) {
+//PhoneGap.addResource("crypto");
 
 /**
 * @constructor
 */
-var Crypto = function() {
-};
+//var Crypto = function() {
+//};
 
-Crypto.prototype.encrypt = function(seed, string, callback) {
-    this.encryptWin = callback;
-    PhoneGap.exec(null, null, "Crypto", "encrypt", [seed, string]);
-};
+//Crypto.prototype.encrypt = function(seed, string, callback) {
+    //this.encryptWin = callback;
+    //PhoneGap.exec(null, null, "Crypto", "encrypt", [seed, string]);
+//};
 
-Crypto.prototype.decrypt = function(seed, string, callback) {
-    this.decryptWin = callback;
-    PhoneGap.exec(null, null, "Crypto", "decrypt", [seed, string]);
-};
+//Crypto.prototype.decrypt = function(seed, string, callback) {
+    //this.decryptWin = callback;
+    //PhoneGap.exec(null, null, "Crypto", "decrypt", [seed, string]);
+//};
 
-Crypto.prototype.gotCryptedString = function(string) {
-    this.encryptWin(string);
-};
+//Crypto.prototype.gotCryptedString = function(string) {
+    //this.encryptWin(string);
+//};
 
-Crypto.prototype.getPlainString = function(string) {
-    this.decryptWin(string);
-};
+//Crypto.prototype.getPlainString = function(string) {
+    //this.decryptWin(string);
+//};
 
-PhoneGap.addConstructor(function() {
-    if (typeof navigator.Crypto === "undefined") {
-        navigator.Crypto = new Crypto();
-    }
-});
-}
+//PhoneGap.addConstructor(function() {
+    //if (typeof navigator.Crypto === "undefined") {
+        //navigator.Crypto = new Crypto();
+    //}
+//});
+//}
 /*
  *     Licensed to the Apache Software Foundation (ASF) under one
  *     or more contributor license agreements.  See the NOTICE file

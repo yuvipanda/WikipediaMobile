@@ -9,14 +9,17 @@ window.app = function() {
 			$('#main img').each(function() {
 				var em = $(this);
 				var gotLinkPath = function(linkPath) {
-					em.attr('src', 'file://' + linkPath.file);
+					console.log(linkPath); 
+					em.attr('src', 'file://' + linkPath);
 				}
 				var target = this.src.replace('file:', 'https:');
-				window.plugins.urlCache.getCachedPathForURI(target, gotLinkPath, gotError);
+
+				window.urlCache.getCachedPathForUrl(target).then(gotLinkPath);
 			});
 		};
 		var gotPath = function(cachedPage) {
-			loadPage('file://' + cachedPage.file, url, function() {
+			console.log("gotPath!" + cachedPage);
+			loadPage('file://' + cachedPage, url, function() {
 				replaceRes();
 			});
 		}
@@ -26,7 +29,7 @@ window.app = function() {
 			// chrome.showNoConnectionMessage();
 			// navigator.app.exitApp();
 		}
-		window.plugins.urlCache.getCachedPathForURI(url, gotPath, gotError);
+		window.urlCache.getCachedPathForUrl(url).then(gotPath);
 	}
 
 	function loadPage(url, origUrl, callback) {
