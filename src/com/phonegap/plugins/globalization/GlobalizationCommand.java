@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.format.Time;
+import android.util.Log;
 
 import com.phonegap.api.Plugin;
 import com.phonegap.api.PluginResult;
@@ -31,7 +32,8 @@ public class GlobalizationCommand extends Plugin  {
 	public PluginResult execute(String action, JSONArray data, String callbackId) {		
 		PluginResult.Status status = PluginResult.Status.OK;			
 		JSONObject obj = new JSONObject();
-
+		String fileDir = ctx.getFilesDir().getAbsolutePath();
+		Log.d(	"PhoneGap", "data URL is " + fileDir);
 		try{			
 			if (action.equals(Resources.GETLOCALENAME)){					
 				obj = getLocaleName();					

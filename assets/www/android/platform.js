@@ -19,6 +19,24 @@ l10n.navigatorLang = function(success) {
 	});
 }
 
+urlCache.requestDataUrlForImage = function(img) {
+	var d = $.Deferred();
+
+	// Create an empty canvas element
+	var canvas = document.createElement("canvas");
+	canvas.width = img.width;
+	canvas.height = img.height;
+
+	// Copy the image contents to the canvas
+	var ctx = canvas.getContext("2d");
+	ctx.drawImage(img, 0, 0);
+	plugins.canvas.toDataURL(canvas, "image/png", function(url) {
+		d.resolve(img, url);
+	}, function(err) {
+		console.log("Error in dataUri conversion!" + JSON.stringify(err));
+	});
+	return d;
+};
 
 chrome.addPlatformInitializer(function() {
 	$('html').addClass('android');

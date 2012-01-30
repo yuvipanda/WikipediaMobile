@@ -3,24 +3,11 @@ window.app = function() {
 		// Hide the iframe until the stylesheets are loaded,
 		// to avoid flash of unstyled text.
 		// Instead we're hidden, which also sucks.
-		var replaceRes = function() {
-
-			// images
-			$('#main img').each(function() {
-				var em = $(this);
-				var gotLinkPath = function(linkPath) {
-					console.log(linkPath); 
-					em.attr('src', 'file://' + linkPath);
-				}
-				var target = this.src.replace('file:', 'https:');
-
-				window.urlCache.getCachedPathForUrl(target).then(gotLinkPath);
-			});
-		};
 		var gotPath = function(cachedPage) {
 			console.log("gotPath!" + cachedPage);
-			loadPage('file://' + cachedPage, url, function() {
-				replaceRes();
+			urlCache.getCachedData(cachedPage).then(function(data) {
+				$("#content").html(data);
+				chrome.onPageLoaded();
 			});
 		}
 		var gotError = function(error) {

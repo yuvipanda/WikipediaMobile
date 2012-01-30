@@ -15,10 +15,11 @@ window.savedPages = function() {
 						alert(mw.message("saved-pages-max-warning").plain());
 					}else{
 						savedPagesDB.save({key: url, title: title});
-						app.navigateToPage(url, {
-							cache: true,
-							updateHistory: false
-						});
+						urlCache.saveCompleteHtml(url, $("#content").html());
+						//app.navigateToPage(url, {
+							//cache: true,
+							//updateHistory: false
+						//});
 						chrome.showNotification(mw.message('page-saved', title).plain());
 					}
 				}
