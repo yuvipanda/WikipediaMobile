@@ -207,8 +207,13 @@ window.chrome = function() {
 				});
 			}
 		} else {
-			// We're showing one of the overlays; cancel out of it.
-			showContent();
+			// Special case for about, since it is two levels down
+			// FIXME: Build a general class for handling overlays
+			if($("#about-page-overlay").is(":visible")) {
+				$("#aboutclose").click();
+			} else {
+				showContent();
+			}
 		}
 	}
 
