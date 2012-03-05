@@ -190,7 +190,7 @@ window.chrome = function() {
 	function goBack() {
 		console.log('currentHistoryIndex '+currentHistoryIndex + ' history length '+pageHistory.length);
 
-		if ($('#content').css('display') == "block") {
+		if ($('#content').is(":visible")) {
 			// We're showing the main view
 			currentHistoryIndex -= 1;
 			chrome.showSpinner();
