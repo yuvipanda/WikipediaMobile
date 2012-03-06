@@ -82,7 +82,9 @@ window.savedPages = function() {
 				$('#savedPages').toggle();
 				chrome.hideContent();
 				chrome.doFocusHack();
+
 				chrome.doScrollHack('#savedPages .scroller');
+				chrome.toggleMoveActions();
 			});
 		});
 

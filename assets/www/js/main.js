@@ -39,5 +39,6 @@ function aboutPage() {
 			appSettings.showSettings();
 		});
 		chrome.doFocusHack();
+		chrome.toggleMoveActions();
 	});
 }

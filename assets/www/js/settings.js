@@ -68,6 +68,7 @@ window.appSettings = function() {
 		chrome.hideContent();
 		$('#settings').localize().show();
 		chrome.doFocusHack();
+		chrome.toggleMoveActions();
 	}
 
 	function onContentLanguageChanged() {

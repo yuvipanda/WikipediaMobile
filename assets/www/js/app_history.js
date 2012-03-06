@@ -66,6 +66,7 @@ window.appHistory = function() {
 				$('#history').localize().show();
 				chrome.doFocusHack();
 				chrome.doScrollHack('#history .scroller');
+				chrome.toggleMoveActions();
 			});
 		});
 

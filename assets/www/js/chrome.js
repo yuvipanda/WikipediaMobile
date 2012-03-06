@@ -179,9 +179,8 @@ window.chrome = function() {
 	}
 
 	function toggleMoveActions() {
-		var canGoForward = currentHistoryIndex < (pageHistory.length -1);
-		var canGoBackward = currentHistoryIndex > 0;
-
+		var canGoForward = currentHistoryIndex < (pageHistory.length - 1) && $("#content").is(":visible");
+		var canGoBackward = (currentHistoryIndex > 0) || $("#content").is(":hidden");
 		setMenuItemState('go-forward', canGoForward, true);
 		setMenuItemState('go-back', canGoBackward, true);
 		updateMenuState();
@@ -210,6 +209,7 @@ window.chrome = function() {
 			// We're showing one of the overlays; cancel out of it.
 			showContent();
 		}
+		toggleMoveActions();
 	}
 
 	function goForward() {
@@ -224,6 +224,7 @@ window.chrome = function() {
 			chrome.hideSpinner();
 			toggleMoveActions();
 		}
+		toggleMoveActions();
 	}
 
 	// Hack to make sure that things in focus actually look like things in focus
@@ -347,6 +348,7 @@ window.chrome = function() {
 		showNoConnectionMessage: showNoConnectionMessage,
 		doFocusHack: doFocusHack,
 		isTwoColumnView: isTwoColumnView,
-		doScrollHack: doScrollHack
+		doScrollHack: doScrollHack,
+		toggleMoveActions: toggleMoveActions
 	};
 }();

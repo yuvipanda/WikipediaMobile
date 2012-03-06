@@ -14,6 +14,7 @@ window.geo = function() {
 		chrome.hideContent();
 		$("#nearby-overlay").localize().show();
 		chrome.doFocusHack();
+		chrome.toggleMoveActions();
 
 		if (!geo.map) {
 			// Disable webkit 3d CSS transformations for tile positioning
@@ -55,6 +56,7 @@ window.geo = function() {
 		else {
 			findAndDisplayNearby( args.lat, args.lon );
 		}
+
 	}
 
 	function getFloatFromDMS( dms ) {
