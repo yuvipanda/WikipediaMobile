@@ -89,6 +89,9 @@ window.chrome = function() {
 			// Do localization of the initial interface
 			$(document).bind("mw-messages-ready", function() {
 				$('#mainHeader, #menu').localize();
+				// Setup to support MobileFrontend's show/hide Buttons
+				window.showText = mw.message('expand-section').plain();
+				window.hideText = mw.message('collapse-section').plain();
 			});
 			l10n.initLanguages();
 
