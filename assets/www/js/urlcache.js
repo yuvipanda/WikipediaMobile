@@ -17,6 +17,7 @@ window.urlCache = function() {
 
 		var dataURL = canvas.toDataURL("image/png");
 		d.resolve(dataURL);
+		console.log("Done with canvas!");
 		//return d;
 		return dataURL;
 		//return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
@@ -69,13 +70,20 @@ window.urlCache = function() {
 		var filePath = fileName;
 
 		console.log("Starting to save");
-		var element = $(html);
-		var replacements = {};
+		var toSaveDoc = document.implementation.createHTMLDocument();
+		toSaveDoc.documentElement.innerHTML = html;
 		console.log("HTML Parsed");
+		console.log("About to map stuff");
+		console.log(JSON.stringify(toSaveDoc.documentElement.getAttribute("dir")));
+		$("img", toSaveDoc).each(function(i, img) {
+			$(this).attr("src", urlCache.dataUrlForImage(this));
+		});
+
+		var htmlToWrite = (new XMLSerializer()).serializeToString(toSaveDoc);	
+		//var htmlToWrite = "<html>" + toSaveDoc.documentElement.innerHTML + "</html>";
 		function saveFile(fileEntry) {
 			fileEntry.createWriter(function(writer) {
-				writer.write(html);
-				console.log('html is ' + html);
+				writer.write(htmlToWrite);
 				console.log("Writing stuff to " + fileEntry.fullPath);
 				writer.onwriteend = function() {
 					console.log("written stuff!");
@@ -83,19 +91,6 @@ window.urlCache = function() {
 				};
 			});
 		}
-		console.log("About to map stuff");
-
-		// Incredibly wasteful hack going to happen. I'm sorry
-		// I am parsing the entire HTML again, *and* doing string replacement
-		// FIXME: Do only one stupid thing, not two
-		// TODO: Check if Images are actually loaded
-		element.find("img").each(function(i, img) {
-			replacements[$(img).attr("src")] =  urlCache.dataUrlForImage(img);
-		});
-
-		$.each(replacements, function(href, data) {
-			html = html.replace(href, data);
-		});
 
 		console.log("Done mapping stuff");
 		console.log("Inside the when");
@@ -119,7 +114,6 @@ window.urlCache = function() {
 		function readFile(fileEntry) {
 			var reader = new FileReader();
 			reader.onloadend = function(evt) {
-				console.log(JSON.stringify(evt));
 				d.resolve(evt.target.result);
 			};
 			console.log('file path is ' + JSON.stringify(fileEntry));

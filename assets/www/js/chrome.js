@@ -31,6 +31,8 @@ window.chrome = function() {
 	function renderHtml(html, url) {
 		$('base').attr('href', url);
 
+		console.log("In renderhtml");
+
 		// Horrible hack to grab the lang & dir attributes from
 		// the target page's <html> without parsing the rest
 		var stub = html.match(/<html ([^>]+)>/i, '$1')[1],
@@ -38,6 +40,7 @@ window.chrome = function() {
 			lang = $stubdiv.attr('lang'),
 			dir = $stubdiv.attr('dir');
 
+		console.log("After it");
 		var trimmed = html.replace(/<body[^>]+>(.*)<\/body/i, '$1');
 
 		var selectors = ['#content>*', '#copyright'],

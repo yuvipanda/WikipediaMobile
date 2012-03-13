@@ -7,6 +7,7 @@ function getAboutVersionString() {
 // Save page supporting code
 app.loadCachedPage = function (url) {
 	return urlCache.getCachedData(url).then(function(data) {
+		console.log("Startedit!");
 		chrome.renderHtml(data, url);
 		chrome.onPageLoaded();
 	}).fail(function(error) {
