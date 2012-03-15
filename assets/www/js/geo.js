@@ -2,6 +2,8 @@ window.geo = function() {
 
 	var shownURLs = [];
 
+	var lastPos = null;
+
 	function showNearbyArticles( args ) {
 		var args = $.extend(
 			{
@@ -17,6 +19,11 @@ window.geo = function() {
 		$("#nearby-overlay").localize().show();
 		chrome.doFocusHack();
 
+		var ping = function() {
+			lastPos = geo.map.getCenter();
+			findAndDisplayNearby( lastPos.lat, lastPos.lng );
+		};
+
 		if (!geo.map) {
 			// Disable webkit 3d CSS transformations for tile positioning
 			// Causes lots of flicker in PhoneGap for some reason...
@@ -30,10 +37,12 @@ window.geo = function() {
 				attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data &copy; 2012 OpenStreetMap contributors'
 			});
 			geo.map.addLayer(tiles);
-		}
+			geo.map.setView(new L.LatLng(args.lat, args.lon), 18);
+			geo.map.on('viewreset', ping);
+			geo.map.on('locationfound', ping);
+			geo.map.on('moveend', ping);
 
-		// @fixme load last-seen coordinates
-		geo.map.setView(new L.LatLng(args.lat, args.lon), 18);
+		}
 
 		var findAndDisplayNearby = function( lat, lon ) {
 			geoLookup( lat, lon, preferencesDB.get("language"), function( data ) {
@@ -43,18 +52,10 @@ window.geo = function() {
 			});
 		};
 
-		var ping = function() {
-			var pos = geo.map.getCenter();
-			findAndDisplayNearby( pos.lat, pos.lng );
-		};
 
-		if ( args.current ) {
-			geo.map.on('viewreset', ping);
-			geo.map.on('locationfound', ping);
-			geo.map.on('moveend', ping);
-			geo.map.locateAndSetView(18, {enableHighAccuracy: true});
-		}
-		else {
+		if ( args.current && !lastPos) {
+				geo.map.locateAndSetView(18, {enableHighAccuracy: true});
+		} else {
 			findAndDisplayNearby( args.lat, args.lon );
 		}
 	}
