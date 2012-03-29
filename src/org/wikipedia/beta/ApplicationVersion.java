@@ -1,8 +1,9 @@
-package org.wikipedia;
+package org.wikipedia.beta;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.wikipedia.beta.R;
 
 import com.phonegap.api.LOG;
 import com.phonegap.api.Plugin;
