@@ -10,7 +10,7 @@ window.app = function() {
 				var gotLinkPath = function(linkPath) {
 					em.attr('src', 'file://' + linkPath.file);
 				}
-				var target = this.src.replace('file:', 'https:');
+				var target = this.src.replace('file:', window.PROTOCOL + ':');
 				window.plugins.urlCache.getCachedPathForURI(target, gotLinkPath, gotError);
 			});
 		};
@@ -83,7 +83,7 @@ window.app = function() {
 	}
 
 	function baseUrlForLanguage(lang) {
-		return 'https://' + lang + '.m.' + PROJECTNAME + '.org';
+		return window.PROTOCOL + '://' + lang + '.m.' + PROJECTNAME + '.org';
 	}
 
 	function setContentLanguage(language) {
