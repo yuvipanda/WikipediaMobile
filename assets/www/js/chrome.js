@@ -55,7 +55,6 @@ window.chrome = function() {
 
 		languageLinks.parseAvailableLanguages($div);
 
-		chrome.doScrollHack('#content');
 	}
 
 	function showNotification(text) {
@@ -322,7 +321,7 @@ window.chrome = function() {
 		toggleMoveActions();
 		geo.addShowNearbyLinks();
 		chrome.hideSpinner();
-		console.log('currentHistoryIndex '+currentHistoryIndex + ' history length '+pageHistory.length);
+		chrome.doScrollHack('#content');
 	}
 
 	function doScrollHack(element, leaveInPlace) {
