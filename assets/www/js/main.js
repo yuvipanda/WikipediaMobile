@@ -22,6 +22,9 @@ window.CREDITS = [
 function init() {
 	$(document.body).addClass('jsEnabled');
 	document.addEventListener("deviceready", function() {chrome.initialize(); }, true);
+	$("#content").bind('DOMSubtreeModified', function(ev) { 
+		chrome.doScrollHack('#content');
+	});
 }
 
 function homePage() {
