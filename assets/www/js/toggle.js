@@ -68,7 +68,7 @@ MobileFrontend.toggle = (function() {
 				wm_toggle_section( section_idx );
 			}
 		}
-		chrome.doScrollHack("#content");
+		chrome.doScrollHack("#content", true);
 	}
 
 	function wm_toggle_section( section_id ) {
@@ -84,7 +84,7 @@ MobileFrontend.toggle = (function() {
 				e.style.display = e.style.display === 'block' ? 'none' : 'block';
 			}
 		}
-		chrome.doScrollHack("#content");
+		chrome.doScrollHack("#content", true);
 	}
 
 	init();
