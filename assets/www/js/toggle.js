@@ -68,7 +68,6 @@ MobileFrontend.toggle = (function() {
 				wm_toggle_section( section_idx );
 			}
 		}
-		chrome.doScrollHack("#content", true);
 	}
 
 	function wm_toggle_section( section_id ) {

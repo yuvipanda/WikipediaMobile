@@ -296,8 +296,8 @@ window.chrome = function() {
 				// A local hashlink; simulate?
 				// FIXME: Replace with Reference reveal
 				var offset = $(href).offset().top;
-				$("#content").scrollTop($("#content").scrollTop() + offset - $("#mainHeader").height());
-				return;
+				chrome.doScrollHack("#content", false, offset); // $("#content").scrollTop() + offset - $("#mainHeader").height());
+				return false;
 			}
 
 			if (url.match(new RegExp("^https?://([^/]+)\." + PROJECTNAME + "\.org/wiki/"))) {
@@ -324,12 +324,14 @@ window.chrome = function() {
 		chrome.doScrollHack('#content');
 	}
 
-	function doScrollHack(element, leaveInPlace) {
+	function doScrollHack(element, leaveInPlace, offset) {
 		// placeholder for iScroll etc where needed
 
 		// Reset scroll unless asked otherwise
 		if (!leaveInPlace) {
-			$(element).scrollTop(0);
+			// offset is relative, make it absolute
+			var absoluteOffset = $(element).scrollTop() + offset - $("#menu").height();
+			$(element).scrollTop(absoluteOffset || 0);
 		}
 	}
 
