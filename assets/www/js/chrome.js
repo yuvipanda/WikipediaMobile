@@ -59,7 +59,7 @@ window.chrome = function() {
 
 	function clearInlineStyles() {
 		$('table.geography[style] td[style*="text-align"], table.geography[style] td[colspan="2"]').addClass('aligned-geography-table-td');
-		$('table.navbox div[style*="padding"]').addClass('navbox-table-with-padding').addClass('.whitespace-pre-wrap');
+		$('table.navbox div[style*="padding"]').addClass('navbox-table-with-padding').addClass('whitespace-pre-wrap');
 		$('table.navbox span[style*="white"]').addClass('whitespace-pre-wrap-important');
 		$('table.geography[style] td[style*="text-align"] div[style], table.geography[style] td[colspan="2"] div[style]').addClass('left-align-text-important');
 	}
