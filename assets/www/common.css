@@ -381,9 +381,9 @@ table.navbox td.navbox-group + td {
 	/*white-space: pre-wrap;*/
 /*}*/
 
-/*table.navbox span[style*="white"] {*/
-	/*white-space: pre-wrap !important;*/
-/*}*/
+table.navbox span[style*="white"] {
+	white-space: pre-wrap !important;
+}
 
 table.navbox td,
 table.navbox th {
