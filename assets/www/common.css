@@ -244,6 +244,7 @@ table.gallery .thumb[style] {
 }
 
 /*table.geography[style] td[style*="text-align"],*/
+.aligned-geography-table-td,
 table.geography[style] td[colspan="2"] {
 	text-align: left !important;
 	margin-left: 0 !important;
@@ -295,8 +296,10 @@ table.navbox th.navbox-title {
 	padding: 5px;
 }
 /*table.navbox div[style*="padding"] {*/
-	/*padding-left: 0 !important;*/
-	/*padding-right: 0 !important;*/
+.navbox-table-with-padding {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
 /*}*/
 
 table.gallery .gallerybox[style] {
@@ -377,6 +380,13 @@ table.navbox td.navbox-group + td {
 	padding: 3px;
 }
 
+.whitespace-pre-wrap {
+	white-space: pre-wrap;
+}
+
+.whitespace-pre-wrap-important {
+	white-space: pre-wrap !important;
+}
 /*table.navbox div[style*="padding"] a {*/
 	/*white-space: pre-wrap;*/
 /*}*/
@@ -414,6 +424,10 @@ table.infobox th[colspan="3"] {
 
 table.geography[style] th {
 	text-align: left;
+}
+
+.left-align-text-important {
+	text-align: left !important;
 }
 
 /*table.geography[style] td[style*="text-align"] div[style],*/
