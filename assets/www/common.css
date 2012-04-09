@@ -243,7 +243,7 @@ table.gallery .thumb[style] {
 	margin: 0 auto;
 }
 
-/*table.geography[style] td[style*="text-align"],*/
+table.geography[style] td[style*="text-align"],
 table.geography[style] td[colspan="2"] {
 	text-align: left !important;
 	margin-left: 0 !important;
@@ -294,10 +294,11 @@ table.navbox th.navbox-title {
 	background: #ccccff;
 	padding: 5px;
 }
-/*table.navbox div[style*="padding"] {*/
-	/*padding-left: 0 !important;*/
-	/*padding-right: 0 !important;*/
-/*}*/
+
+table.navbox div[style*="padding"] {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
 
 table.gallery .gallerybox[style] {
 	width: auto !important;
@@ -436,6 +437,7 @@ body {
 	color: black;
 	background: white;
 	font-family: sans-serif;
+	word-break: break-word;
 }
 
 p,
