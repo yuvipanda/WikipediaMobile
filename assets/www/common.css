@@ -450,7 +450,7 @@ body {
 	color: black;
 	background: white;
 	font-family: sans-serif;
-+	word-break: break-word;
+	word-break: break-word;
 }
 
 p,
