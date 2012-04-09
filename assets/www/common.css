@@ -244,11 +244,11 @@ table.gallery .thumb[style] {
 }
 
 /*table.geography[style] td[style*="text-align"],*/
-/*table.geography[style] td[colspan="2"] {*/
-	/*text-align: left !important;*/
-	/*margin-left: 0 !important;*/
-	/*margin-right: 0 !important;*/
-/*}*/
+table.geography[style] td[colspan="2"] {
+	text-align: left !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
 
 table.toc h2 {
 	border: 0;
@@ -417,9 +417,9 @@ table.geography[style] th {
 }
 
 /*table.geography[style] td[style*="text-align"] div[style],*/
-/*table.geography[style] td[colspan="2"] div[style] {*/
-	/*text-align: left !important;*/
-/*}*/
+table.geography[style] td[colspan="2"] div[style] {
+	text-align: left !important;
+}
 
 table.admin {
 	width: 300px;
@@ -530,7 +530,7 @@ h2 {
 .thumb .thumbinner[style] {
 	margin: 5px auto;
 	max-width: 100%;
-	/*width: auto !important;*/
+	width: auto !important;
 }
 
 .thumb img {
