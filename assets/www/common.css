@@ -2,7 +2,7 @@
 	background: url(images/close-button.png) no-repeat scroll 0 0 transparent;
 	background-position: center center;
 	cursor: pointer;
-	zoom: 1;
+	/*zoom: 1;*/
 	position: absolute;
 	right: 0.25em;
 	top: 50%;
@@ -213,7 +213,7 @@ ul#footer-info {
 .divclearable {
 	border: 1px solid #888;
 	display: block;
-	zoom: 1;
+	/*zoom: 1;*/
 	vertical-align: middle;
 	position: relative;
 	z-index: 2;
@@ -228,9 +228,9 @@ ul#footer-info {
 }
 
 table {
-	border-spacing: 0 !important;
+	/*border-spacing: 0 !important;*/
 	max-width: 100%;
-	border-collapse: collapse !important;
+	/*border-collapse: collapse !important;*/
 	border: 1px solid #cccccc;
 	padding: 3px;
 	margin-bottom: 15px;
@@ -238,17 +238,17 @@ table {
 
 table.gallery .thumb[style] {
 	border: 0;
-	padding: 0 !important;
-	width: auto !important;
+	/*padding: 0 !important;*/
+	/*width: auto !important;*/
 	margin: 0 auto;
 }
 
-table.geography[style] td[style*="text-align"],
-table.geography[style] td[colspan="2"] {
-	text-align: left !important;
-	margin-left: 0 !important;
-	margin-right: 0 !important;
-}
+/*table.geography[style] td[style*="text-align"],*/
+/*table.geography[style] td[colspan="2"] {*/
+	/*text-align: left !important;*/
+	/*margin-left: 0 !important;*/
+	/*margin-right: 0 !important;*/
+/*}*/
 
 table.toc h2 {
 	border: 0;
@@ -294,11 +294,10 @@ table.navbox th.navbox-title {
 	background: #ccccff;
 	padding: 5px;
 }
-
-table.navbox div[style*="padding"] {
-	padding-left: 0 !important;
-	padding-right: 0 !important;
-}
+/*table.navbox div[style*="padding"] {*/
+	/*padding-left: 0 !important;*/
+	/*padding-right: 0 !important;*/
+/*}*/
 
 table.gallery .gallerybox[style] {
 	width: auto !important;
@@ -378,13 +377,13 @@ table.navbox td.navbox-group + td {
 	padding: 3px;
 }
 
-table.navbox div[style*="padding"] a {
-	white-space: pre-wrap;
-}
+/*table.navbox div[style*="padding"] a {*/
+	/*white-space: pre-wrap;*/
+/*}*/
 
-table.navbox span[style*="white"] {
-	white-space: pre-wrap !important;
-}
+/*table.navbox span[style*="white"] {*/
+	/*white-space: pre-wrap !important;*/
+/*}*/
 
 table.navbox td,
 table.navbox th {
@@ -417,10 +416,10 @@ table.geography[style] th {
 	text-align: left;
 }
 
-table.geography[style] td[style*="text-align"] div[style],
-table.geography[style] td[colspan="2"] div[style] {
-	text-align: left !important;
-}
+/*table.geography[style] td[style*="text-align"] div[style],*/
+/*table.geography[style] td[colspan="2"] div[style] {*/
+	/*text-align: left !important;*/
+/*}*/
 
 table.admin {
 	width: 300px;
@@ -437,7 +436,6 @@ body {
 	color: black;
 	background: white;
 	font-family: sans-serif;
-	word-break: break-word;
 }
 
 p,
@@ -447,9 +445,9 @@ dl,
 	line-height: 1.65;
 }
 
-pre {
-	white-space: pre-wrap;
-}
+/*pre {*/
+	/*white-space: pre-wrap;*/
+/*}*/
 
 a {
 	text-decoration: none;
@@ -532,19 +530,19 @@ h2 {
 .thumb .thumbinner[style] {
 	margin: 5px auto;
 	max-width: 100%;
-	width: auto !important;
+	/*width: auto !important;*/
 }
 
 .thumb img {
-	max-width: 100% !important;
-	width: auto !important;
+	/*max-width: 100% !important;*/
+	/*width: auto !important;*/
 }
 
 .thumb .thumbcaption {
 	width: 100%;
 	margin: 5px 10px 0;
 	text-align: center;
-	width: auto !important;
+	/*width: auto !important;*/
 }
 
 img.thumbborder {
