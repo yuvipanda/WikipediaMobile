@@ -228,9 +228,9 @@ ul#footer-info {
 }
 
 table {
-	/*border-spacing: 0 !important;*/
+	border-spacing: 0 !important;
 	max-width: 100%;
-	/*border-collapse: collapse !important;*/
+	border-collapse: collapse !important;
 	border: 1px solid #cccccc;
 	padding: 3px;
 	margin-bottom: 15px;
@@ -238,8 +238,8 @@ table {
 
 table.gallery .thumb[style] {
 	border: 0;
-	/*padding: 0 !important;*/
-	/*width: auto !important;*/
+	padding: 0 !important;
+	width: auto !important;
 	margin: 0 auto;
 }
 
@@ -534,15 +534,15 @@ h2 {
 }
 
 .thumb img {
-	/*max-width: 100% !important;*/
-	/*width: auto !important;*/
+	max-width: 100% !important;
+	width: auto !important;
 }
 
 .thumb .thumbcaption {
 	width: 100%;
 	margin: 5px 10px 0;
 	text-align: center;
-	/*width: auto !important;*/
+	width: auto !important;
 }
 
 img.thumbborder {
