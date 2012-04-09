@@ -445,9 +445,9 @@ dl,
 	line-height: 1.65;
 }
 
-/*pre {*/
-	/*white-space: pre-wrap;*/
-/*}*/
+pre {
+	white-space: pre-wrap;
+}
 
 a {
 	text-decoration: none;
