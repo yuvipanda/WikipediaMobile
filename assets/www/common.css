@@ -2,7 +2,7 @@
 	background: url(images/close-button.png) no-repeat scroll 0 0 transparent;
 	background-position: center center;
 	cursor: pointer;
-	/*zoom: 1;*/
+	zoom: 1;
 	position: absolute;
 	right: 0.25em;
 	top: 50%;
@@ -213,7 +213,7 @@ ul#footer-info {
 .divclearable {
 	border: 1px solid #888;
 	display: block;
-	/*zoom: 1;*/
+	zoom: 1;
 	vertical-align: middle;
 	position: relative;
 	z-index: 2;
