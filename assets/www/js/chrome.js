@@ -55,6 +55,7 @@ window.chrome = function() {
 
 		languageLinks.parseAvailableLanguages($div);
 		clearInlineStyles();
+		disableLargeImages();
 	}
 
 	function clearInlineStyles() {
@@ -63,6 +64,22 @@ window.chrome = function() {
 		$('table.navbox span[style*="white"]').addClass('whitespace-pre-wrap-important');
 		$('table.geography[style] td[style*="text-align"] div[style], table.geography[style] td[colspan="2"] div[style]').addClass('left-align-text-important');
 	}
+
+	function disableLargeImages() {
+		var x = $("#content img").each(function(i, el) {
+			var src = $(el).attr("src");
+			var alt = $(el).attr("alt");
+			var img = new Image();
+			img.onload = function() {
+				if(img.width > 600) {
+					$("<a />").attr("href", src).text('View Image').insertBefore(el);
+					$(el).remove();
+				}
+			}
+			img.src = src;
+		});
+	}
+
 
 	function showNotification(text) {
 		alert(text);
