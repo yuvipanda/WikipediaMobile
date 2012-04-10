@@ -179,12 +179,14 @@ window.chrome = function() {
 		hideOverlays();
 		$('#mainHeader').show();
 		$('#content').show();
+		$("#menu").show();
 	}
 
 	function hideContent() {
 		$('#mainHeader').hide();
 		if(!isTwoColumnView()) {
 			$('#content').hide();
+			$("#menu").hide();
 		} else {
 			$('html').addClass('overlay-open');
 		}
