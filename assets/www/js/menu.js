@@ -110,7 +110,7 @@ function updateMenuState() {
 		if(item.disabled) {
 			$button.addClass("disabled");
 		} else {
-			$button.click(function() {
+			$button.bind('touchstart', function() {
 				item.action.apply(this);
 			});
 		}
