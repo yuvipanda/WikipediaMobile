@@ -6,7 +6,7 @@ if(navigator.userAgent.match(/OS 4_2/g)) {
 }
 
 function getAboutVersionString() {
-	return "3.1.2-RC2";
+	return "3.1.2-RC4";
 }
 
 (function() {
