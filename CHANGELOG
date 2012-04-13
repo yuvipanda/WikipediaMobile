@@ -127,3 +127,19 @@
 ## iOS specific ##
 
 - Fix inconsistent login behavior of Facebook sharing
+
+## iOS v3.1.1 ##
+
+- Fix crashing on start with iOS 5.1
+
+## iOS v3.1.2 ##
+
+- Fix scrolling issues in iOS 4.x
+- Hide navbar inside overlays (this avoids people getting the app into
+  inconsistent UI states)
+- Hide Share to Twitter from pre iOS 5.x devices
+- Updated splash screen images
+- Smarter autosuggest when using search
+- Fix orientation issues with Save to Read It Later
+- Add 'Open in Safari' as a page action
+- Updated translations
