@@ -143,3 +143,4 @@
 - Fix orientation issues with Save to Read It Later
 - Add 'Open in Safari' as a page action
 - Updated translations
+- Fixed bugs with saved pages not persisting
