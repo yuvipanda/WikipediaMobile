@@ -54,10 +54,10 @@ function setPageActionsState(state) {
 
 (function() {
 	var origFun = chrome.doScrollHack;
-	chrome.doScrollHack = function(element, leaveInPlace) {
+	chrome.doScrollHack = function(element, leaveInPlace, offset) {
 		if (!leaveInPlace) {
 			$(element).hide(); // HACK: for bug 35369
-			$(element).scrollTop(0);
+			$(element).scrollTop(offset || 0);
 			window.setTimeout(function() {
 				$(element).show();
 			}, 0);
@@ -151,7 +151,7 @@ function updateMenuState() {
 	var d = $.Deferred();
 
 	var menu_handlers = {
-		'read-in': function() { languageLinks.showAvailableLanguages(); },
+		'read-in': function() { languageLinks.showLangLinks(app.curPage); },
 		'near-me': function() { geo.showNearbyArticles(); },
 		'view-history': function() { appHistory.showHistory(); } ,
 		'save-page': function() { savedPages.saveCurrentPage() },
@@ -181,10 +181,6 @@ function updateMenuState() {
 									   });
 	return d;
 };
-
-network.isConnected = function()  {
-	return navigator.network.connection.type == Connection.NONE ? false : true;
-}
 
 //@Override
 app.setCaching = function(enabled, success) {

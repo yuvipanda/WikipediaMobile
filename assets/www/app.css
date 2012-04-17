@@ -61,9 +61,16 @@ header {
 	position:absolute;
 	top:52px;
 	width: 100%;
-	bottom: 52px;
+	bottom: 0px;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
+	/* See http://stackoverflow.com/questions/7808110/css3-property-webkit-overflow-scrollingtouch-error */
+	-webkit-transform: translate3d(0, 0, 0); 
+}
+
+.scroller > * {
+	/* See http://stackoverflow.com/questions/7808110/css3-property-webkit-overflow-scrollingtouch-error */
+    -webkit-transform: translateZ(0px);
 }
 
 .badscroll .scroller {
@@ -80,7 +87,7 @@ header {
 #map {
 	position: absolute;
 	top: 52px;
-	bottom: 52px;
+	bottom: 0px;
 	left: 0px;
 	right: 0px;
 }
@@ -95,6 +102,10 @@ header {
 
 .badscroll #content {
 	position:relative;
+}
+
+#content.scroller {
+	bottom: 52px;
 }
 
 #main {
@@ -259,6 +270,10 @@ button#search
 	height: 30px;
 	width: 30px;
 	visibility: hidden;
+}
+
+#searchresults .scroller {
+	margin-bottom: 52px;
 }
 
 .badscroll #clearSearch {
@@ -583,6 +598,9 @@ body[dir=rtl] #settingsList .item select {
 		background: -webkit-gradient(linear, left top, left bottom, from(#5F5F5F), to(#4F4F4F));
 		background: -moz-linear-gradient(#5F5F5F 0%, #4F4F4F 100%);
 		background: -ms-linear-gradient(#5F5F5F 0%, #4F4F4F 100%);
+	}
+	#content.scroller {
+		bottom: 0px;
 	}
 	.goodscroll #content {
 		position: absolute;

@@ -30,33 +30,39 @@ var menu_items = [
 	},
 	{
 		id: 'read-in',
-		action:  languageLinks.showAvailableLanguages
+		action:  function() { languageLinks.showLangLinks(app.curPage); }
 	},
 	{
 		id: 'page-actions',
 		action: function() {
-			// @fixme these are iOS-specific options and should be replaced on other platforms
-			popupMenu([
+			var pageActions = [
 				mw.msg('menu-savePage'),
 				mw.msg('menu-ios-open-safari'),
-				mw.msg('menu-share-twitter'),
 				mw.msg('menu-share-ril'),
 				mw.msg('menu-share-fb'),
 				mw.msg('menu-cancel')
-			], function(value, index) {
+			];
+			// iOS less than 5 does not have Twitter. 
+			// FIXME: Refactor menu.js to be not platform specific
+			var cancelIndex = 4;
+			if(navigator.userAgent.match(/OS 5/g)) {
+				pageActions.splice(pageActions.length - 1, 0, mw.msg('menu-share-twitter'));
+				cancelIndex = 5;
+			}
+			popupMenu(pageActions, function(value, index) {
 				if (index == 0) {
 					savedPages.saveCurrentPage();
 				} else if (index == 1) {
 					shareSafari();
 				} else if (index == 2) {
-					shareTwitter();
-				} else if (index == 3) {
 					shareRIL();
-				} else if (index == 4) {
+				} else if (index == 3) {
 					shareFB();
+				} else if (index == 4 && cancelIndex != 4) {
+					shareTwitter();
 				}
 			}, {
-				cancelButtonIndex: 5,
+				cancelButtonIndex: cancelIndex,
 				origin: this
 			});
 		}
