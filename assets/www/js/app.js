@@ -95,6 +95,7 @@ window.app = function() {
 		$('#main').load(page, function() {
 			$('#main').localize();
 			d.resolve();
+			setCurrentPage(page);
 		});
 		return d;
 	}
