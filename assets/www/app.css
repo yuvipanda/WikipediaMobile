@@ -61,9 +61,20 @@ header {
 	position:absolute;
 	top:52px;
 	width: 100%;
-	bottom: 52px;
+	bottom: 0px;
 	overflow-y: auto;
+	/* See http://stackoverflow.com/questions/7808110/css3-property-webkit-overflow-scrollingtouch-error */
+	-webkit-transform: translate3d(0, 0, 0); 
+}
+
+/* fix for cleaner scrolling on non-android see commit f130a3e3c823309d3e5d8cc57d202e67f3631fce */
+.ios .scroller {
 	-webkit-overflow-scrolling: touch;
+}
+
+.scroller > * {
+	/* See http://stackoverflow.com/questions/7808110/css3-property-webkit-overflow-scrollingtouch-error */
+    -webkit-transform: translateZ(0px);
 }
 
 .badscroll .scroller {
@@ -80,7 +91,7 @@ header {
 #map {
 	position: absolute;
 	top: 52px;
-	bottom: 52px;
+	bottom: 0px;
 	left: 0px;
 	right: 0px;
 }
@@ -97,9 +108,16 @@ header {
 	position:relative;
 }
 
+#content.scroller {
+	bottom: 52px;
+}
+
+.nativeMenu #content.scroller {
+	bottom: 0;
+}
+
 #main {
 	padding: 8px;
-	margin-bottom: 52px;
 }
 
 .listItemContainer {
@@ -261,6 +279,19 @@ button#search
 	visibility: hidden;
 }
 
+#about-page-content,
+.android-2 .nativeMenu #main,
+.android-2 .nativeMenu #searchresults .scroller,
+#searchresults .scroller {
+	margin-bottom: 52px;
+}
+
+.nativeMenu #main,
+.nativeMenu #about-page-content,
+.nativeMenu #searchresults .scroller {
+	margin-bottom: 0;
+}
+
 .badscroll #clearSearch {
 	position:fixed;
 }
@@ -317,7 +348,6 @@ button#search
 	display: -webkit-box;
 	display: -moz-box;
 	display: box;
-	width: 100%;
 	background: -webkit-gradient(linear, left top, left bottom, from(#5F5F5F), to(#4F4F4F));
 	background: -moz-linear-gradient(#5F5F5F 0%, #4F4F4F 100%);
 	background: -ms-linear-gradient(#5F5F5F 0%, #4F4F4F 100%);
@@ -440,7 +470,6 @@ body[dir=rtl] #settingsList .item select {
 
 #about-page-content {
 	text-align: center;	
-	margin-bottom: 52px;
 }
 
 #about-version {
@@ -584,6 +613,14 @@ body[dir=rtl] #settingsList .item select {
 		background: -moz-linear-gradient(#5F5F5F 0%, #4F4F4F 100%);
 		background: -ms-linear-gradient(#5F5F5F 0%, #4F4F4F 100%);
 	}
+	#content.scroller {
+		bottom: 0px;
+	}
+	#about-page-content,
+	#main,
+	#searchresults .scroller {
+		margin-bottom: 0;
+	}
 	.goodscroll #content {
 		position: absolute;
 		width: auto;
@@ -609,4 +646,15 @@ body[dir=rtl] #settingsList .item select {
 
 .disabled {
 	opacity: 0.1;
+}
+
+.android .scroller, /* without this content not visible until a scroll event */
+.android .scroller > * {
+	-webkit-transform: none; /* in ICS this causes lots of problems with scrolling */
+}
+
+/* in ICS it is not possible to scroll vertically across tables so undo rule in beta_common.css */
+.android table {
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: none;
 }
