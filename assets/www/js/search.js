@@ -138,9 +138,9 @@ window.search = function() {
 		} else {
 			$("html").addClass('overlay-open');
 		}
-		chrome.doFocusHack();
+		chrome.setupFastClick("#resultList .listItemContainer");
 		$('#searchresults').localize().show();
-		chrome.setupScrolling('#searchresults .scroller');
+		chrome.setupScrolling('#resultList');
 		chrome.scrollTo('#searchresults .scroller', 0);
 	}
 

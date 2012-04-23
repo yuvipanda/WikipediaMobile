@@ -49,7 +49,7 @@ function aboutPage() {
 			$("#about-page-overlay").hide();
 			appSettings.showSettings();
 		});
-		chrome.doFocusHack();
+		chrome.setupFastClick("#about-page-overlay");
 		chrome.setupScrolling('#about-page-overlay .scroller');
 		chrome.scrollTo('#about-page-overlay .scroller', 0);
 	});

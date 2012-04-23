@@ -66,7 +66,7 @@ window.appSettings = function() {
 		chrome.hideOverlays();
 		chrome.hideContent();
 		$('#settings').localize().show();
-		chrome.doFocusHack();
+		chrome.setupFastClick("#settingsList");
 		// WTFL: The following line of code is necessary to make the 'back' button
 		// work consistently on iOS. According to warnings by brion in index.html, 
 		// doing this line will break things in Android. Need to test before merge.

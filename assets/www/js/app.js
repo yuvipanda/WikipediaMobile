@@ -41,6 +41,7 @@ window.app = function() {
 		MobileFrontend.init();
 		chrome.setupScrolling("#content");
 		chrome.scrollTo("#content", 0);
+		chrome.setupFastClick("#content > *");
 		appHistory.addCurrentPage();
 		chrome.toggleMoveActions();
 		geo.addShowNearbyLinks();

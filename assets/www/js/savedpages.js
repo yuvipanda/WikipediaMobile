@@ -103,7 +103,7 @@ window.savedPages = function() {
 				chrome.hideOverlays();
 				$('#savedPages').localize().show();
 				chrome.hideContent();
-				chrome.doFocusHack();
+				chrome.setupFastClick("#savedPagesList .listItemContainer");
 				chrome.setupScrolling('#savedPages .scroller');
 				chrome.scrollTo('#savedPages .scroller', 0);
 			});

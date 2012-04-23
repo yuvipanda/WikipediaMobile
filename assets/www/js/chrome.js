@@ -125,7 +125,7 @@ window.chrome = function() {
 
 			initContentLinkHandlers();
 			chrome.loadFirstPage();
-			doFocusHack();
+			chrome.setupFastClick("header, .titlebar");
 		});
 
 	}
@@ -231,52 +231,15 @@ window.chrome = function() {
 		}
 	}
 
-	// Hack to make sure that things in focus actually look like things in focus
-	function doFocusHack() {
-		var scrollEnd = false;
-		var applicableClasses = [
-			'.deleteButton',
-			'.listItem',
-			'#search',
-			'.closeButton',
-			'.cleanButton',
-			'.titlebarIcon'
-		];
-
-		for (var key in applicableClasses) {
-			applicableClasses[key] += ':not(.activeEnabled)';
-		}
-		console.log(applicableClasses);
-
-		function onTouchMove() {
-			scrollEnd = true;
-		}
-
-		function onTouchEnd() {
-			if(!scrollEnd) {
-				$(this).addClass('active');
-				setTimeout(function() {
-					$('.active').removeClass('active');
-				} , 150 );
+	function setupFastClick(selector) {
+		$(selector).each(function(i, el) {
+			var $el = $(el);
+			if($el.data('fastclick')) {
+				return;
+			} else {
+				$el.data('fastclick', new NoClickDelay($el[0]));
 			}
-			$('body').unbind('touchend', onTouchEnd);
-			$('body').unbind('touchmove', onTouchMove);
-		}
-
-		function onTouchStart() {
-			$('body').bind('touchend', onTouchEnd);
-			$('body').bind('touchmove', onTouchMove);
-			scrollEnd = false;
-		}			
-
-		setTimeout(function() {
-			$(applicableClasses.join(',')).each(function(i) {
-				$(this).bind('touchstart', onTouchStart);
-				$(this).bind('touchmove', onTouchMove);
-				$(this).bind('touchend', onTouchEnd);
-				$(this).addClass('activeEnabled');
-			});
-		}, 5);
+		});
 	}
 
 	function initContentLinkHandlers() {
@@ -333,7 +296,7 @@ window.chrome = function() {
 		hideContent: hideContent,
 		addPlatformInitializer: addPlatformInitializer,
 		showNoConnectionMessage: showNoConnectionMessage,
-		doFocusHack: doFocusHack,
+		setupFastClick: setupFastClick,
 		isTwoColumnView: isTwoColumnView,
 		openExternalLink: openExternalLink,
 		toggleMoveActions: toggleMoveActions,
