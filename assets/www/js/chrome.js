@@ -135,26 +135,15 @@ window.chrome = function() {
 			$(".closeButton").bind('click', showContent);
 
 			initContentLinkHandlers();
-			chrome.loadFirstPage();
+			chrome.loadFirstPage()
 			chrome.setupFastClick("header, .titlebar");
 		});
 
 	}
 
 	function loadFirstPage() {
-		chrome.showSpinner();
-
-		// restore browsing to last visited page
-		var historyDB = new Lawnchair({name:"historyDB"}, function() {
-			this.all(function(history){
-				if(history.length==0 || window.history.length > 1) {
-					app.navigateToPage(app.baseURL);
-				} else {
-					app.navigateToPage(history[history.length-1].value);
-				}
-			});
-		});
-
+		// NOP
+		// Overriden in Android for loading URLs from intents
 	}
 
 	function isTwoColumnView() {
