@@ -153,6 +153,14 @@ window.chrome = function() {
 
 	}
 
+	function setupImageHandling() {
+		$("#main a img").click(function() {
+			var link = $(this).parents('a').attr('href');
+			chrome.openExternalLink(link);
+			return false;
+		});
+	}
+
 	function isTwoColumnView() {
 		// should match the CSS media queries
 		// check for goodscroll is so we don't use it on Android 2.x tablets
@@ -309,6 +317,7 @@ window.chrome = function() {
 		toggleMoveActions: toggleMoveActions,
 		confirm: confirm,
 		setupScrolling: setupScrolling,
-		scrollTo: scrollTo
+		scrollTo: scrollTo,
+		setupImageHandling: setupImageHandling
 	};
 }();
