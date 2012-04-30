@@ -269,10 +269,6 @@ window.chrome = function() {
 
 			event.preventDefault();
 
-			if (href.substr(0, 1) == '#') {
-				// FIXME: Replace with Reference reveal
-			}
-
 			if (url.match(new RegExp("^https?://([^/]+)\." + PROJECTNAME + "\.org/wiki/"))) {
 				// ...and load it through our intermediate cache layer.
 				app.navigateToPage(url);
