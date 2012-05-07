@@ -179,7 +179,7 @@ if(navigator.userAgent.match(/OS 4/)) {
 			window.setTimeout(function() {
 				scroller.refresh();
 				console.log("Refreshing!");
-			}, 200); // HACK: Making this zero does do the refresh properly
+			}, 500); // HACK: Making this zero does do the refresh properly
 			// Quite possibly that the DOM takes a while to actually settle down
 		} else {
 			scroller = new iScroll($el[0]);
