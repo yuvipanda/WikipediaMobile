@@ -20,20 +20,20 @@ table {
 	margin-bottom: 15px;
 }
 
-table.gallery .thumb {
+table.gallery .thumb[style] {
 	border: 0;
 	padding: 0 !important;
 	width: auto !important;
 	margin: 0 auto;
 }
 
-table.geography td {
+table.geography[style] td[style] {
 	text-align: left !important;
 	margin-left: 0 !important;
 	margin-right: 0 !important;
 }
 
-table {
+table[style] {
 	float: none !important;
 	margin-left: 0 !important;
 	width: 100% !important;
@@ -44,18 +44,18 @@ table.navbox {
 	width: 100% !important;
 }
 
-table.navbox div {
+table.navbox div[style] {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 }
 
-table.gallery .gallerybox {
+table.gallery .gallerybox[style] {
 	width: auto !important;
 	margin-bottom: -16px;
 }
 
-table.navbox div a,
-table.navbox span {
+table.navbox div[style] a,
+table.navbox span[style] {
 	white-space: pre-wrap !important;
 }
 
@@ -63,7 +63,7 @@ table.infobox {
 	border: 1px solid #cccccc;
 }
 
-.thumb .thumbinner {
+.thumb .thumbinner[style] {
 	margin: 5px auto;
 	max-width: 100%;
 	width: auto !important;
