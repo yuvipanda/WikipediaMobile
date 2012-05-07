@@ -15,6 +15,21 @@ window.app = function() {
 		return d;
 	}
 
+	function loadMainPage(lang) {
+		var d = $.Deferred();
+		if(typeof lang === "undefined") {
+			lang = preferencesDB.get("language");
+		}
+
+		app.getWikiMetadata().done(function(wikis) {
+			app.navigateTo(wikis[lang].mainPage, lang).done(function(data) {
+				d.resolve(data);
+			}).fail(function(err) {
+				d.rejcet(err);
+			});
+		});
+	}
+
 	function loadCachedPage (url, title, lang) {
 		chrome.showSpinner();
 		var d = $.Deferred();
@@ -240,7 +255,8 @@ window.app = function() {
 		track: track,
 		curPage: null,
 		navigateTo: navigateTo,
-		getWikiMetadata: getWikiMetadata
+		getWikiMetadata: getWikiMetadata,
+		loadMainPage: loadMainPage
 	};
 
 	return exports;
