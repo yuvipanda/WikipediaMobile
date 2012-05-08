@@ -92,6 +92,7 @@ window.chrome = function() {
 			$(document).bind("mw-messages-ready", function() {
 				$('#mainHeader, #menu').localize();
 				updateMenuState();
+				$("#initial-content").localize();
 				$("#page-footer-contributors").html(mw.message('page-contributors').plain());
 				$("#page-footer-license").html(mw.message('page-license').plain());
 				$("#show-page-history").click(function() {

@@ -736,3 +736,7 @@ the scrollable divs seem to be giving us lots of bugs
 .mw-cite-backlink {
 	display: none;
 }
+
+#initial-content {
+	text-align: center;
+}
