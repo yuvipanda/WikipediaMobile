@@ -34,6 +34,7 @@ window.chrome = function() {
 		$("#main").html(page.toHtml());
 
 		MobileFrontend.references.init($("#main")[0], false, {animation: 'none'});
+		chrome.doStyleHacks($("#main")[0]);
 		handleSectionExpansion();
 	}
 
@@ -43,6 +44,7 @@ window.chrome = function() {
 			var sectionHtml = app.curPage.getSectionHtml(sectionID);
 			$contentBlock.append($(sectionHtml)).data('populated', true);
 			MobileFrontend.references.init($contentBlock[0], false, {animation: 'none'});
+			chrome.doStyleHacks($contentBlock[0]);
 		} 
 	}
 
