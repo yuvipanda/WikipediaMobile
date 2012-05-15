@@ -33,7 +33,7 @@ window.chrome = function() {
 		}
 		$("#main").html(page.toHtml());
 
-		MobileFrontend.references.init($("#main")[0], false, {animation: 'none'});
+		MobileFrontend.references.init($("#main")[0], false, {animation: 'none', onClickReference: onClickReference});
 		handleSectionExpansion();
 	}
 
@@ -139,10 +139,7 @@ window.chrome = function() {
 
 			$(".closeButton").bind('click', showContent);
 			// Initialize Reference reveal with empty content
-			MobileFrontend.references.init($("#content")[0], true);
-			MobileFrontend.references.onReferenceShown = function() {
-				chrome.initContentLinkHandlers("#mf-references");
-			}
+			MobileFrontend.references.init($("#content")[0], true, {onClickReference: onClickReference} );
 
 			app.setFontSize(preferencesDB.get('fontSize'));
 			chrome.initContentLinkHandlers("#main");
@@ -150,6 +147,11 @@ window.chrome = function() {
 			chrome.setupFastClick("header, .titlebar");
 		});
 
+	}
+
+	// Bind to links inside reference reveal, handle them properly
+	function onClickReference() {
+			chrome.initContentLinkHandlers("#mf-references");
 	}
 
 	function loadFirstPage() {
