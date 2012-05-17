@@ -33,7 +33,7 @@ app.loadCachedPage = function (url) {
 	});
 }
 
-savedPages.doSave = function() {
+savedPages.doSave = function(options) {
 	var d = $.Deferred();
 	var url = app.curPage.getAPIUrl();
 	var data = JSON.stringify(app.curPage);
@@ -42,7 +42,9 @@ savedPages.doSave = function() {
 		chrome.populateSection(section.id);
 	});
 	urlCache.saveCompleteHtml(url, data, $("#main")).then(function() {
-		chrome.showNotification(mw.message('page-saved', app.curPage.title).plain());
+		if(!options.silent) {
+			chrome.showNotification(mw.message('page-saved', app.curPage.title).plain());
+		}
 		app.track('mobile.app.wikipedia.save-page');
 		chrome.hideSpinner();
 		d.resolve();
