@@ -145,11 +145,11 @@ window.chrome = function() {
 			chrome.initContentLinkHandlers("#main");
 			savedPages.doMigration().done(function() {	
 				chrome.loadFirstPage().done(function() {
-					$("#migrating-saved-pages-overlay").hide();
+					$("#migrating-saved-pages-overlay").remove();
 				});
 			}).fail(function() {
 				navigator.notification.alert(mw.msg('migrating-saved-pages-failed'), function() {
-					$("#migrating-saved-pages-overlay").hide();
+					$("#migrating-saved-pages-overlay").remove();
 				});
 				chrome.loadFirstPage();
 			});

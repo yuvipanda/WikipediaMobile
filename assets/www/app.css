@@ -762,6 +762,6 @@ the scrollable divs seem to be giving us lots of bugs
 	-moz-box-pack: center;
 	box-pack: center;
 	text-align: center;
-
+	visibility: hidden; /* Can't use display: none, since .show() will by default make it block */
 	font-size: 18px;
 }

@@ -34,7 +34,8 @@ window.savedPages = function() {
 							mw.msg('migrating-saved-pages-confirm'),
 							function(index) {
 								if(index === 1) {
-									$("#migrating-saved-pages-overlay").show();
+									// Can't use .show() since the overlay needs to start hidden, but also use the flexbox model 
+									$("#migrating-saved-pages-overlay").css('visibility', 'visible');
 									function saveNextPage(curPage) {
 										$("#migration-status").html(mw.msg('migrating-saved-page-status', pages[curPage].title));
 										app.navigateToPage(pages[curPage].key).done(function() {
