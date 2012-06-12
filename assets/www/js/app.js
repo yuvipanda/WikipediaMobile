@@ -98,15 +98,15 @@ window.app = function() {
 		var d = $.Deferred();
 
 		function doRequest() {
-			app.curPageReq = Page.requestFromTitle(title, language).done(function(page) {
+			app.curSpinningReq = Page.requestFromTitle(title, language).done(function(page) {
 				if(page === null) {
 					setErrorPage(404);
 				}
 				setCurrentPage(page);
-				app.curPageReq = null;
+				app.curSpinningReq = null;
 				d.resolve(page);
 			}).fail(function(xhr, textStatus, errorThrown) {
-				app.curPageReq = null;
+				app.curSpinningReq = null;
 				if(textStatus === "abort") {
 					// User cancelled action. Do nothing!
 					console.log("User cancelled action!");
@@ -282,7 +282,8 @@ window.app = function() {
 		navigateTo: navigateTo,
 		getWikiMetadata: getWikiMetadata,
 		loadMainPage: loadMainPage,
-		curPageReq: null
+		// Request that is currently causing the spinner to spin
+		curSpinningReq: null
 	};
 
 	return exports;

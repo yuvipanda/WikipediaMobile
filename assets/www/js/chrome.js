@@ -117,8 +117,9 @@ window.chrome = function() {
 			});
 			$("#searchForm").bind('submit', function() {
 				if(isSpinning()) {
-					if(app.curPageReq !== null) {
-						app.curPageReq.abort();
+					if(app.curSpinningReq !== null) {
+						app.curSpinningReq.abort();
+						app.curSpinningReq = null;
 						chrome.hideSpinner();
 					}
 				} else {
