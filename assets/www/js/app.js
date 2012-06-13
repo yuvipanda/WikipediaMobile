@@ -98,15 +98,13 @@ window.app = function() {
 		var d = $.Deferred();
 
 		function doRequest() {
-			app.curSpinningReq = Page.requestFromTitle(title, language).done(function(page) {
+			var req = Page.requestFromTitle(title, language).done(function(page) {
 				if(page === null) {
 					setErrorPage(404);
 				}
 				setCurrentPage(page);
-				app.curSpinningReq = null;
 				d.resolve(page);
 			}).fail(function(xhr, textStatus, errorThrown) {
-				app.curSpinningReq = null;
 				if(textStatus === "abort") {
 					// User cancelled action. Do nothing!
 					console.log("User cancelled action!");
@@ -115,6 +113,7 @@ window.app = function() {
 				setErrorPage(xhr.status);	
 				d.reject(xhr);
 			});
+			chrome.setSpinningReq(req);
 		}
 
 		if(!navigator.onLine) {
