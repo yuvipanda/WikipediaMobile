@@ -33,6 +33,7 @@ window.app = function() {
 		origUrl = origUrl || url;
 		console.log('hideAndLoad url ' + url);
 		console.log('hideAndLoad origUrl ' + origUrl);
+		url = 'http://mobile-geo.wmflabs.org/w/index.php/Sura';
 		var doRequest = function() {
 			network.makeRequest({
 				url: url,
@@ -79,11 +80,12 @@ window.app = function() {
 	}
 
 	function urlForTitle(title) {
-		return app.baseURL + "/wiki/" + encodeURIComponent(title.replace(/ /g, '_'));
+		return app.baseURL + encodeURIComponent(title.replace(/ /g, '_'));
 	}
 
 	function baseUrlForLanguage(lang) {
-		return window.PROTOCOL + '://' + lang + '.m.' + PROJECTNAME + '.org';
+		return 'http://mobile-geo.wmflabs.org/w/index.php';
+		//return 'https://' + lang + '.m.' + PROJECTNAME + '.org';
 	}
 
 	function setContentLanguage(language) {
