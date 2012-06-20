@@ -84,13 +84,26 @@ window.urlCache = function() {
 		var imageReplacements = [];
 		domParent.find("img").each(function(i, img) {
 			var ir = $.Deferred();
-			$(img).load(function() {
+			console.log("Starting for " + $(img).attr('src'));
+			if(img.complete) {
+				// Image has already loaded!
 				replacements[$(img).attr("src")] =  urlCache.dataUrlForImage(img);
 				ir.resolve();
-			});
+			} else {
+				$(img).load(function() {
+					console.log("finished for " + $(img).attr('src'));
+					replacements[$(img).attr("src")] =  urlCache.dataUrlForImage(img);
+					ir.resolve();
+				}).error(function() {
+					console.log("Goddamn errors!");
+					// But we aren't doing anything about them now
+					ir.resolve();
+				});
+			}
 			imageReplacements.push(ir);
 		});
 		$.when.apply($, imageReplacements).done(function() {
+			console.log("All done now!");
 			$.each(replacements, function(href, dataURI) {
 				data = data.replace(href, dataURI);
 			});
