@@ -179,7 +179,8 @@ window.app = function() {
 		$('#searchParam').val('');
 		chrome.showContent();
 		if(options.hideCurrent) {
-			$("#content").hide();
+			$("#main").empty();
+			$("#page-footer").hide();
 		}
 		chrome.showSpinner();
 
@@ -194,7 +195,7 @@ window.app = function() {
 		d.done(function() {
 			console.log("Navigating to " + title);
 			if(options.hideCurrent) {
-				$("#content").show();
+				$("#page-footer").show();
 			}			
 		});
 		return d;
