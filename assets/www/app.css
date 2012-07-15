@@ -813,3 +813,21 @@ body[dir=rtl] .deleteButton {
 	left: 0px;
 	right: auto;
 }
+
+body[dir=rtl] .cleanButton {
+	left: 0;
+	right: auto;
+}
+
+body[dir=rtl] .closeButton {
+	right: 0;
+	left: auto;
+	-moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+body[dir=rtl] .titlebarItem {
+	padding-left: auto;
+	padding-right: 32px;
+}
