@@ -548,8 +548,16 @@ body[dir=rtl] #settingsList .item select {
 	background: url(image/ios/toolbar-back.png);
 }
 
+body[dir=rtl] #go-back span {
+	background: url(image/ios/toolbar-forward.png);
+}
+
 #go-forward span {
 	background: url(image/ios/toolbar-forward.png);
+}
+
+body[dir=rtl] #go-forward span {
+	background: url(image/ios/toolbar-back.png);
 }
 
 #read-in span {
