@@ -796,3 +796,20 @@ body[dir=rtl] .section_heading button
 {
 	float: left;
 }
+
+body[dir=rtl]  .iconSavedPage,
+body[dir=rtl]  .iconHistory,
+body[dir=rtl]  .iconSearchResult {
+	right: 8px;
+	left: auto;
+}
+
+body[dir=rtl] .listItem .text {
+	right: 40px;
+	left: 16px;
+}
+
+body[dir=rtl] .deleteButton {
+	left: 0px;
+	right: auto;
+}
