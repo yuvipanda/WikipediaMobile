@@ -822,9 +822,10 @@ body[dir=rtl] .cleanButton {
 body[dir=rtl] .closeButton {
 	right: 0;
 	left: auto;
+	/* Mirror the back button so it points in the correct direction in RTL */
 	-moz-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
 }
 
 body[dir=rtl] .titlebarItem {
