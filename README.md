@@ -12,7 +12,7 @@
 
 ### Checking out the source code
 
-1. [Create your own fork][create-fork-wikipediamobile] of the code.
+1. Create your own fork of the repository.
 2. Clone your fork onto your computer.
                             
 ### Setting up the project
@@ -61,6 +61,5 @@ Please ensure you read STYLE_GUIDELINES before making any contribution to this p
 New and updated messages should be contributed at [translatewiki.net/wiki/Translating:WikipediaMobile][Translating-WikipediaMobile]. (and not submitted as pull requests)
 
 [phonegap-gettingstarted]: http://www.phonegap.com/start
-[create-fork-wikipediamobile]: https://github.com/wikimedia/WikipediaMobile/fork
 [playbook-sdk]: https://bdsc.webapps.blackberry.com/html5/download/sdk
 [Translating-WikipediaMobile]: https://translatewiki.net/wiki/Translating:WikipediaMobile
