@@ -56,4 +56,9 @@ A: Right [here][phonegap-1-4-1-download]
 ## Contributing
 Please ensure you read STYLE_GUIDELINES before making any contribution to this project!
 
+### Translation, Localization, Internationalization (l10n / i18n)
+
+New and updated messages should be contributed at [translatewiki.net/wiki/Translating:WikipediaMobile][Translating-WikipediaMobile]. (and not submitted as pull requests)
+
 [phonegap-1-4-1-download]: https://nodeload.github.com/phonegap/phonegap/zipball/1.4.1
+[Translating-WikipediaMobile]: https://translatewiki.net/wiki/Translating:WikipediaMobile
