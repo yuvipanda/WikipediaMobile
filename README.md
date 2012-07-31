@@ -12,7 +12,7 @@
 
 ### Checking out the source code
 
-1. Create your own fork of the <a href="https://github.com/wikimedia/WikipediaMobile" target="_blank">Wikipedia</a> code.
+1. <a href="https://github.com/wikimedia/WikipediaMobile/fork" target="_blank">Create your own fork</a> of the code.
 2. Clone your fork onto your computer.
                             
 ### Setting up the project
