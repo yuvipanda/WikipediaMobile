@@ -451,7 +451,7 @@
     <None Include="WikipediaMetroTest_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="Microsoft.WinJS.1.0.RC, Version=1.0" />
+    <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="messages\" />

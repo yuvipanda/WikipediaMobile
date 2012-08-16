@@ -84,7 +84,7 @@
 
     $(function () {
         $(document).bind('mw-messages-ready', function () {
-            WinJS.UI.processAll().then(doStuff);
+            WinJS.UI.processAll().done(doStuff);
         });
         l10n.initLanguages();
 
