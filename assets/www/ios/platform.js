@@ -95,12 +95,16 @@ function showPageActions(origin) {
 	];
 	// iOS less than 5 does not have Twitter. 
 	var cancelIndex = 4;
-	if(navigator.userAgent.match(/OS 5/g)) {
+	if(navigator.userAgent.match(/OS [1-4]/g)) {
+		// Twitter added in 
+	} else {
 		pageActions.splice(pageActions.length - 2, 0, mw.msg('menu-share-twitter'));
 		cancelIndex = 5;
 	}
 	popupMenu(pageActions, function(value, index) {
-		if (index == 0) {
+		if (index == cancelIndex ) {
+			// do nothing
+		} else if (index == 0) {
 			savedPages.saveCurrentPage();
 		} else if (index == 1) {
 			shareSafari();
@@ -108,7 +112,7 @@ function showPageActions(origin) {
 			shareFB();
 		} else if (index == 3 && cancelIndex != 4) {
 			shareTwitter();
-        } else if (index == 4) {
+        } else {
             shareMail();
         }
 	}, {
