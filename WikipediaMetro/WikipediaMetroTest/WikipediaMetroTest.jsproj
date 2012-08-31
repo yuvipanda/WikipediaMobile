@@ -443,11 +443,19 @@
     <Content Include="css\default.css" />
     <Content Include="js\jquery-1.7.2.js" />
     <Content Include="js\wikiview.js" />
+    <Content Include="win8-small-tile.scale-100.png" />
+    <Content Include="win8-small-tile.scale-140.png" />
+    <Content Include="win8-small-tile.scale-180.png" />
+    <Content Include="win8-tile.scale-100.png" />
+    <Content Include="win8-tile.scale-140.png" />
+    <Content Include="win8-tile.scale-180.png" />
+    <Content Include="win8-tile.scale-80.png" />
+    <Content Include="win8-wide-tile.scale-100.png" />
+    <Content Include="win8-wide-tile.scale-140.png" />
+    <Content Include="win8-wide-tile.scale-180.png" />
+    <Content Include="win8-wide-tile.scale-80.png" />
     <None Include="Package.StoreAssociation.xml" />
     <None Include="WikipediaMetroTest_StoreKey.pfx" />
-    <Content Include="win8-tile-small.png" />
-    <Content Include="win8-tile.png" />
-    <Content Include="win8-wide-tile.png" />
     <None Include="WikipediaMetroTest_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

@@ -15,8 +15,8 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="Wikipedia" Logo="win8-tile.png" SmallLogo="win8-tile-small.png" Description="Wikipedia Mobile for Windows 8" ForegroundText="dark" BackgroundColor="#ffffff">
-        <DefaultTile ShowName="allLogos" WideLogo="win8-wide-tile.png" />
+      <VisualElements DisplayName="Wikipedia" Logo="win8-tile.png" SmallLogo="win8-small-tile.png" Description="Wikipedia Mobile for Windows 8" ForegroundText="dark" BackgroundColor="#ffffff">
+        <DefaultTile ShowName="logoOnly" WideLogo="win8-wide-tile.png" />
         <SplashScreen Image="images\splashscreen.png" />
       </VisualElements>
       <Extensions>
