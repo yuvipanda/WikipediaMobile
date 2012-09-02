@@ -82,195 +82,204 @@
     }
     window.ROOT_URL = '';
 
-    $(function () {
-        $(document).bind('mw-messages-ready', function () {
-            WinJS.UI.processAll().done(doStuff);
-        });
-        l10n.initLanguages();
-
-        function doStuff() {
-            $('#readInCmd')[0].winControl.label = mediaWiki.message('menu-language').plain();
-            $('#pinCmd')[0].winControl.label = mediaWiki.message('menu-win8-pin').plain();
-            $('#unpinCmd')[0].winControl.label = mediaWiki.message('menu-win8-unpin').plain();
-            $('#browserCmd')[0].winControl.label = mediaWiki.message('menu-open-browser').plain();
-            $('#offline').localize();
-
-            WinJS.Application.onsettings = function (e) {
-                e.detail.applicationcommands = {
-                    about: {
-                        title: mediaWiki.message('menu-about').plain(),
-                        href: "/about.html"
-                    }
-                };
-                WinJS.UI.SettingsFlyout.populateSettings(e);
+    var beenInitialized = false;
+    function setupApp() {
+        return new WinJS.Promise(function (complete, error, prog) {
+            if (beenInitialized) {
+                complete();
+                return;
             }
 
-            initHub('en');
-            // Handler for links!
-            $(document).on('click', 'a', function (event) {
-                var url = $(this).attr('href'),
-                    refMatches = url.match(/^#cite_note/),
-                    hashMatches = url.match(/^#/),
-                    wikiMatches = url.match(/^\/wiki\/(.*)/);
-                if (refMatches) {
-                    // Reference link
-                    var $ref = $(url).clone();
-                    showLightbox($ref, 'small');
-                    event.preventDefault();
-                } else if (hashMatches) {
+            $(document).bind('mw-messages-ready', function () {
+                WinJS.UI.processAll().done(doStuff);
+            });
+            l10n.initLanguages();
+
+            function doStuff() {
+                $('#readInCmd')[0].winControl.label = mediaWiki.message('menu-language').plain();
+                $('#pinCmd')[0].winControl.label = mediaWiki.message('menu-win8-pin').plain();
+                $('#unpinCmd')[0].winControl.label = mediaWiki.message('menu-win8-unpin').plain();
+                $('#browserCmd')[0].winControl.label = mediaWiki.message('menu-open-browser').plain();
+                $('#offline').localize();
+
+                WinJS.Application.onsettings = function (e) {
+                    e.detail.applicationcommands = {
+                        about: {
+                            title: mediaWiki.message('menu-about').plain(),
+                            href: "/about.html"
+                        }
+                    };
+                    WinJS.UI.SettingsFlyout.populateSettings(e);
+                }
+
+                initHub('en');
+                // Handler for links!
+                $(document).on('click', 'a', function (event) {
+                    var url = $(this).attr('href'),
+                        refMatches = url.match(/^#cite_note/),
+                        hashMatches = url.match(/^#/),
+                        wikiMatches = url.match(/^\/wiki\/(.*)/);
+                    if (refMatches) {
+                        // Reference link
+                        var $ref = $(url).clone();
+                        showLightbox($ref, 'small');
+                        event.preventDefault();
+                    } else if (hashMatches) {
                         // no-op, but close any lightboxes first
-                    $('.lightbox-bg, .lightbox-fg').remove();
-                } else if (wikiMatches) {
+                        $('.lightbox-bg, .lightbox-fg').remove();
+                    } else if (wikiMatches) {
                         // Internal wiki-link
-                    $('.lightbox-bg, .lightbox-fg').remove();
-                    var lang = state.current().lang,
-                        title = decodeURIComponent(wikiMatches[1]);
-                    if ($(this).hasClass('image')) {
-                        // Image link
-                        showImage(lang, title);
+                        $('.lightbox-bg, .lightbox-fg').remove();
+                        var lang = state.current().lang,
+                            title = decodeURIComponent(wikiMatches[1]);
+                        if ($(this).hasClass('image')) {
+                            // Image link
+                            showImage(lang, title);
+                        } else {
+                            doLoadPage(lang, title);
+                        }
+                        event.preventDefault();
                     } else {
-                        doLoadPage(lang, title);
+                        // Remote or absolute link
+                        if (url.match(/^\/\//)) {
+                            // fixup for protocol-relative links
+                            url = 'https:' + url;
+                        }
+                        var uri = new Windows.Foundation.Uri(url);
+                        Windows.System.Launcher.launchUriAsync(uri);
+                        event.preventDefault();
                     }
+                });
+                $('#back').click(function () {
+                    //doShowHub();
+                    doGoBack();
+                }).bind('contextmenu', function (event) {
+                    // Catch touch context menu
                     event.preventDefault();
-                } else {
-                    // Remote or absolute link
-                    if (url.match(/^\/\//)) {
-                        // fixup for protocol-relative links
-                        url = 'https:' + url;
+                    showHistoryMenu(this);
+                });
+                $('#resultlist').bind('iteminvoked', function (event) {
+                    var index = event.originalEvent.detail.itemIndex;
+                    var selected = SearchResults.itemList.getItem(index);
+                    console.log(selected);
+                    if (!selected.data.title) {
+                        throw new Error("bad title");
                     }
-                    var uri = new Windows.Foundation.Uri(url);
-                    Windows.System.Launcher.launchUriAsync(uri);
-                    event.preventDefault();
-                }
-            });
-            $('#back').click(function () {
-                //doShowHub();
-                doGoBack();
-            }).bind('contextmenu', function (event) {
-                // Catch touch context menu
-                event.preventDefault();
-                showHistoryMenu(this);
-            });
-            $('#resultlist').bind('iteminvoked', function (event) {
-                var index = event.originalEvent.detail.itemIndex;
-                var selected = SearchResults.itemList.getItem(index);
-                console.log(selected);
-                if (!selected.data.title) {
-                    throw new Error("bad title");
-                }
-                doLoadPage(state.current().lang, selected.data.title);
-            });
-            $('#hub-list').bind('iteminvoked', function (event) {
-                var index = event.originalEvent.detail.itemIndex;
-                var selected = HubContents.groupedList.getItem(index);
-                if (selected.data.title) {
                     doLoadPage(state.current().lang, selected.data.title);
-                }
-            });
-            $(window).bind('resize', function () {
-                sizeContent();
-            });
-            $(window).resize();
-
-            $('#appbar').bind('beforeshow', function () {
-                var lang = state.current().lang,
-                    title = state.current().title;
-                if (Windows.UI.StartScreen.SecondaryTile.exists(tileId(lang, title))) {
-                    $("#pinCmd").hide();
-                    $("#unpinCmd").show();
-                } else {
-                    $("#unpinCmd").hide();
-                    $("#pinCmd").show();
-                }
-                if (state.current().type == 'article') {
-                    $('#pinCmd').removeAttr('disabled');
-                    $('#unpinCmd').removeAttr('disabled');
-                } else {
-                    $('#pinCmd').attr('disabled', 'disabled');
-                    $('#unpinCmd').attr('disabled', 'disabled');
-                }
-            });
-
-            $('#pinCmd').click(function () {
-                var lang = state.current().lang,
-                    title = state.current().title.replace(/_/g, ' '),
-                    shortName = title,
-                    displayName = title + ' - Wikipedia',
-                    tileOptions = Windows.UI.StartScreen.TileOptions.showNameOnLogo,
-                    uriLogo = new Windows.Foundation.Uri("ms-appx:///images/secondary-tile.png"),
-                    tileActivationArguments = "lang=" + lang + '&' + 'title=' + encodeURIComponent(title),
-                    tile = new Windows.UI.StartScreen.SecondaryTile(tileId(lang, title), shortName, displayName, tileActivationArguments, tileOptions, uriLogo);
-
-                var element = document.getElementById("pinCmd"),
-                    selectionRect = element.getBoundingClientRect();
-                tile.requestCreateAsync({ x: selectionRect.left, y: selectionRect.top }).then(function (isCreated) {
-                    if (isCreated) {
-                        console.log('tile is created');
-                        // Secondary tile successfully pinned.
-                    } else {
-                        console.log('tile is not created');
-                        // Secondary tile not pinned.
+                });
+                $('#hub-list').bind('iteminvoked', function (event) {
+                    var index = event.originalEvent.detail.itemIndex;
+                    var selected = HubContents.groupedList.getItem(index);
+                    if (selected.data.title) {
+                        doLoadPage(state.current().lang, selected.data.title);
                     }
                 });
-            });
-
-            $('#unpinCmd').click(function () {
-                var lang = state.current().lang,
-                    title = state.current().title.replace(/_/g, ' '),
-                    tile = Windows.UI.StartScreen.SecondaryTile(tileId(lang, title)),
-                    element = document.getElementById("unpinCmd"),
-                    selectionRect = element.getBoundingClientRect();
-                tile.requestDeleteAsync({ x: selectionRect.left, y: selectionRect.top });
-            });
-
-            $('#browserCmd').click(function () {
-                var url = articleUrl(state.current().lang, state.current().title),
-                    uri = new Windows.Foundation.Uri(url);
-                Windows.System.Launcher.launchUriAsync(uri);
-            });
-
-            $('#readInCmd').click(function () {
-                var current = state.current(),
-                    title = current.title,
-                    lang = current.lang,
-                    promise;
-                if (current.type == 'article') {
-                    promise = getLanguageLinks(lang, title);
-                } else {
-                    promise = getWikiLanguageLinks(lang);
-                }
-                promise.then(function (langlinks) {
-                    var div = document.createElement('div');
-                    langlinks.forEach(function (langlink) {
-                        var lang = langlink.lang,
-                            target = langlink.target,
-                            label = langlink.title + ' (' + lang + ')',
-                            button = document.createElement('button'),
-                            command = new WinJS.UI.MenuCommand(button, {
-                                label: label
-                            });
-                        command.addEventListener('click', function () {
-                            if (current.type == 'hub') {
-                                initHub(lang);
-                            } else if (current.type == 'search') {
-                                doSearch(lang, current.search);
-                            } else {
-                                doLoadPage(lang, target);
-                            }
-                        });
-                        div.appendChild(button);
-                    });
-                    $('body').append(div);
-                    var menu = new WinJS.UI.Menu(div, {
-                        anchor: $('#readInCmd')[0]
-                    });
-                    menu.show();
+                $(window).bind('resize', function () {
+                    sizeContent();
                 });
-            });
+                $(window).resize();
 
-            app.start();
-        };
-    });
+                $('#appbar').bind('beforeshow', function () {
+                    var lang = state.current().lang,
+                        title = state.current().title;
+                    if (Windows.UI.StartScreen.SecondaryTile.exists(tileId(lang, title))) {
+                        $("#pinCmd").hide();
+                        $("#unpinCmd").show();
+                    } else {
+                        $("#unpinCmd").hide();
+                        $("#pinCmd").show();
+                    }
+                    if (state.current().type == 'article') {
+                        $('#pinCmd').removeAttr('disabled');
+                        $('#unpinCmd').removeAttr('disabled');
+                    } else {
+                        $('#pinCmd').attr('disabled', 'disabled');
+                        $('#unpinCmd').attr('disabled', 'disabled');
+                    }
+                });
+
+                $('#pinCmd').click(function () {
+                    var lang = state.current().lang,
+                        title = state.current().title.replace(/_/g, ' '),
+                        shortName = title,
+                        displayName = title + ' - Wikipedia',
+                        tileOptions = Windows.UI.StartScreen.TileOptions.showNameOnLogo,
+                        uriLogo = new Windows.Foundation.Uri("ms-appx:///images/secondary-tile.png"),
+                        tileActivationArguments = "lang=" + lang + '&' + 'title=' + encodeURIComponent(title),
+                        tile = new Windows.UI.StartScreen.SecondaryTile(tileId(lang, title), shortName, displayName, tileActivationArguments, tileOptions, uriLogo);
+
+                    var element = document.getElementById("pinCmd"),
+                        selectionRect = element.getBoundingClientRect();
+                    tile.requestCreateAsync({ x: selectionRect.left, y: selectionRect.top }).then(function (isCreated) {
+                        if (isCreated) {
+                            console.log('tile is created');
+                            // Secondary tile successfully pinned.
+                        } else {
+                            console.log('tile is not created');
+                            // Secondary tile not pinned.
+                        }
+                    });
+                });
+
+                $('#unpinCmd').click(function () {
+                    var lang = state.current().lang,
+                        title = state.current().title.replace(/_/g, ' '),
+                        tile = Windows.UI.StartScreen.SecondaryTile(tileId(lang, title)),
+                        element = document.getElementById("unpinCmd"),
+                        selectionRect = element.getBoundingClientRect();
+                    tile.requestDeleteAsync({ x: selectionRect.left, y: selectionRect.top });
+                });
+
+                $('#browserCmd').click(function () {
+                    var url = articleUrl(state.current().lang, state.current().title),
+                        uri = new Windows.Foundation.Uri(url);
+                    Windows.System.Launcher.launchUriAsync(uri);
+                });
+
+                $('#readInCmd').click(function () {
+                    var current = state.current(),
+                        title = current.title,
+                        lang = current.lang,
+                        promise;
+                    if (current.type == 'article') {
+                        promise = getLanguageLinks(lang, title);
+                    } else {
+                        promise = getWikiLanguageLinks(lang);
+                    }
+                    promise.then(function (langlinks) {
+                        var div = document.createElement('div');
+                        langlinks.forEach(function (langlink) {
+                            var lang = langlink.lang,
+                                target = langlink.target,
+                                label = langlink.title + ' (' + lang + ')',
+                                button = document.createElement('button'),
+                                command = new WinJS.UI.MenuCommand(button, {
+                                    label: label
+                                });
+                            command.addEventListener('click', function () {
+                                if (current.type == 'hub') {
+                                    initHub(lang);
+                                } else if (current.type == 'search') {
+                                    doSearch(lang, current.search);
+                                } else {
+                                    doLoadPage(lang, target);
+                                }
+                            });
+                            div.appendChild(button);
+                        });
+                        $('body').append(div);
+                        var menu = new WinJS.UI.Menu(div, {
+                            anchor: $('#readInCmd')[0]
+                        });
+                        menu.show();
+                    });
+                });
+
+                beenInitialized = true;
+                complete();
+            }
+        });
+    }
 
     function getLanguageLinks(lang, title) {
         var url = 'https://' + lang + '.wikipedia.org/w/api.php';
@@ -357,22 +366,20 @@
 
     app.onactivated = function (eventObject) {
         var detail = eventObject.detail;
-        if (detail.kind === Windows.ApplicationModel.Activation.ActivationKind.launch) {
-            if (detail.previousExecutionState !== Windows.ApplicationModel.Activation.ApplicationExecutionState.terminated) {
-                // TODO: This application has been newly launched. Initialize C:\Users\brion\src\wiki\WikipediaMetroTest\WikipediaMetroTest\js\default.js
-                // your application here.
-            } else {
-                // TODO: This application has been reactivated from suspension. 
-                // Restore application state here.
-            }
-            if (detail.arguments != '') {
-                console.log(detail.arguments);
-                var args = parseArgs(detail.arguments);
-                doLoadPage(args.lang, args.title);
-            }
-        } else if (detail.kind === Windows.ApplicationModel.Activation.ActivationKind.search) {
-            doSearch(state.current().lang, detail.queryText);
-        }
+        var activate = new WinJS.Promise(function (complete, err, prog) {
+            setupApp().then(function () {
+                if (detail.kind === Windows.ApplicationModel.Activation.ActivationKind.launch) {
+                    if (detail.arguments != '') {
+                        var args = parseArgs(detail.arguments);
+                        doLoadPage(args.lang, args.title);
+                    }
+                } else if (detail.kind === Windows.ApplicationModel.Activation.ActivationKind.search) {
+                    doSearch(state.current().lang, detail.queryText);
+                }
+                complete();
+            });
+        });
+        eventObject.setPromise(activate);
     };
     
     app.oncheckpoint = function (eventObject) {
@@ -383,6 +390,7 @@
         // asynchronous operation before your application is suspended, call
         // eventObject.setPromise(). 
     };
+    app.start();
 
     // Obtain the Search Pane object and register for handling search while running as the main application
     var searchPane = Windows.ApplicationModel.Search.SearchPane.getForCurrentView();
