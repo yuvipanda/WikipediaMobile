@@ -386,6 +386,7 @@
 
     // Obtain the Search Pane object and register for handling search while running as the main application
     var searchPane = Windows.ApplicationModel.Search.SearchPane.getForCurrentView();
+    searchPane.showOnKeyboardInput = true;
     searchPane.addEventListener("querysubmitted", function (e) {
         console.log('querysubmitted', e);
         doLoadPage(state.current().lang, e.queryText);
