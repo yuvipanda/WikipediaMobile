@@ -144,6 +144,9 @@
                         if (url.match(/^\/\//)) {
                             // fixup for protocol-relative links
                             url = 'https:' + url;
+                        } else if (url.match(/^\//)) {
+                            // fixup for local relative links
+                            url = 'https://' + state.current().lang + '.wikipedia.org' + url;
                         }
                         var uri = new Windows.Foundation.Uri(url);
                         Windows.System.Launcher.launchUriAsync(uri);
@@ -562,7 +565,10 @@
                     ]
 
                 */
-                $('#content').empty();
+                $('#content')
+                    .empty()
+                    .attr('lang', lang)
+                    .attr('dir', langIsRtl(lang) ? 'rtl' : 'ltr');
                 TocSections.itemList.splice(0, TocSections.itemList.length); // clear
                 data.mobileview.sections.forEach(function (section) {
                     if (!section.text) {
@@ -1108,6 +1114,12 @@
         });
         menu.show();
     }
+
+    function langIsRtl(lang) {
+        var rtls = ['ar', 'arc', 'arz', 'ckb', 'dv', 'fa', 'he', 'kwh', 'ks', 'mzn', 'pnb', 'ps', 'sd', 'ug', 'ur', 'yi'];
+        return (rtls.indexOf(lang) != -1);
+    }
+
 })();
 function groupInfo() {
     return {

@@ -315,15 +315,20 @@ button.show-table {
         overflow-x: scroll;
         overflow-y: visible;
         column-width: 320px;
-        column-gap: 20px; 
+        column-gap: 20px;
         column-fill: auto;
-                
+    }
+    #content[dir=ltr] {
         /* Padding for the left end of the screen */
         padding-left: 120px;
                 
         /* Margin to force the last column to spill over */
         /* @fixme need to add more padding inside */
         margin-right: -120px;
+    }
+    #content[dir=rtl] {
+        padding-right: 120px;
+        margin-left: -120px;
     }
     .lightbox-fg.small {
         width: 400px;
