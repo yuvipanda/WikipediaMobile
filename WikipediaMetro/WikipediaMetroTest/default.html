@@ -112,9 +112,12 @@
 
         <!--<button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'nearbyCmd',label:'Nearby',icon:'mappin',section:'global',tooltip:'Show nearby articles'}"></button>-->
     </div>
-    <div id="find-flyout" data-win-control="WinJS.UI.Flyout">
+    <div id="find-bar">
+        <label for="find-input">Find in page:</label>
         <input id="find-input" value="" />
-        <button id="find-next">Find next</button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'find-prev',label:'Find prev',icon:'previous',section:'selection'}"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'find-next',label:'Find next',icon:'next',section:'selection'}"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'find-close',label:'Close',icon:'cancel',section:'global'}"></button>
     </div>
 </body>
 </html>

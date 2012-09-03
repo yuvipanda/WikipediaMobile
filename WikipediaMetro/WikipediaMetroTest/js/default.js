@@ -195,9 +195,11 @@
                     if (state.current().type == 'article') {
                         $('#pinCmd').removeAttr('disabled');
                         $('#unpinCmd').removeAttr('disabled');
+                        $('#findCmd').removeAttr('disabled');
                     } else {
                         $('#pinCmd').attr('disabled', 'disabled');
                         $('#unpinCmd').attr('disabled', 'disabled');
+                        $('#findCmd').attr('disabled', 'disabled');
                     }
                 });
 
@@ -279,25 +281,48 @@
                 });
 
                 var reader = document.getElementById('reader');
-                function findNext() {
+                var range = document.body.createTextRange();
+                function findNext(backwards) {
                     var query = $('#find-input').val();
-                    findInElement(reader, query);
+                    if (query !== '') {
+                        var toStart = (backwards),
+                            opt = (backwards ? 1 : 0),
+                            count = (backwards ? -1000000 : 1000000);
+                        range.collapse(toStart);
+                        if (range.findText(query, count, 0)) {
+                            try {
+                                range.select();
+                            } catch (e) {
+                                console.log(e);
+                            }
+                        }
+                    }
                 }
                 $('#findCmd').click(function () {
-                    document.getElementById('find-flyout').winControl.show(this);
-                    //findNext();
+                    $('#appbar')[0].winControl.hide();
+                    $('#find-bar').show();
+
+                    // Have to disable app-wide search to input here
+                    Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = false;
+                    range = document.body.createTextRange();
+                    // @fixme make a range only within the content area
+                    range.collapse();
+                    $('#find-input').focus();
                 });
-                $('#find-input').bind('input', function () {
-                    //findNext();
+                $('#find-input').bind('keypress', function (event) {
+                    if (event.keyCode == 13) {
+                        event.preventDefault();
+                        findNext();
+                    }
+                });
+                $('#find-prev').click(function () {
+                    findNext(true);
                 });
                 $('#find-next').click(function () {
                     findNext();
                 });
-                $('#find-flyout').bind('beforeshow', function () {
-                    // Have to disable app-wide search to input here
-                    Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = false;
-                });
-                $('#find-flyout').bind('afterhide', function () {
+                $('#find-close').click(function () {
+                    $('#find-bar').hide();
                     Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = true;
                 });
 
