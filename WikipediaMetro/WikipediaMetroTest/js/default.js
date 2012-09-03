@@ -278,6 +278,29 @@
                     });
                 });
 
+                var reader = document.getElementById('reader');
+                function findNext() {
+                    var query = $('#find-input').val();
+                    findInElement(reader, query);
+                }
+                $('#findCmd').click(function () {
+                    document.getElementById('find-flyout').winControl.show(this);
+                    //findNext();
+                });
+                $('#find-input').bind('input', function () {
+                    //findNext();
+                });
+                $('#find-next').click(function () {
+                    findNext();
+                });
+                $('#find-flyout').bind('beforeshow', function () {
+                    // Have to disable app-wide search to input here
+                    Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = false;
+                });
+                $('#find-flyout').bind('afterhide', function () {
+                    Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = true;
+                });
+
                 beenInitialized = true;
                 complete();
             }
