@@ -184,13 +184,10 @@ character. We're not in the habit of using these because the PHP interpreter out
 them into HTML output, but on JavaScript and raw HTML files it causes no harm and
 makes Microsoft happy.
 
-### Escalating issues with certification
+### Escalating issues with Windows Store
 
-If you get a rejection that you don't understand, there's not a clear escalation path.
-For now, check with me (Brion) and our partner contact at Microsoft (Raj) and we'll
-see if we can figure it out or get some internal communication going.
-
-Hopefully a clearer escalation path will come about in the future.
+If you get a rejection that you don't understand, look up more info or escalate
+at http://msdn.microsoft.com/en-us/windows/apps/hh690938
 
 ## Windows 8 Metro UI information
 
