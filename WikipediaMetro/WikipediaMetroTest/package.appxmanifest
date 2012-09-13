@@ -21,6 +21,11 @@
       </VisualElements>
       <Extensions>
         <Extension Category="windows.search" />
+        <Extension Category="windows.shareTarget" StartPage="target.html">
+          <ShareTarget>
+            <DataFormat>Text</DataFormat>
+          </ShareTarget>
+        </Extension>
       </Extensions>
     </Application>
   </Applications>

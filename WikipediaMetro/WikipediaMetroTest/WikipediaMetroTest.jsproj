@@ -434,6 +434,7 @@
       <Link>messages\messages-zh-tw.properties</Link>
     </Content>
     <Content Include="about.html" />
+    <Content Include="css\target.css" />
     <Content Include="default.html" />
     <Content Include="images\secondary-tile.scale-100.png" />
     <Content Include="images\secondary-tile.scale-140.png" />
@@ -447,6 +448,7 @@
     <Content Include="js\find.js" />
     <Content Include="js\jquery-1.7.2.js" />
     <Content Include="js\wikiview.js" />
+    <Content Include="target.html" />
     <Content Include="win8-small-tile.scale-100.png" />
     <Content Include="win8-small-tile.scale-140.png" />
     <Content Include="win8-small-tile.scale-180.png" />
