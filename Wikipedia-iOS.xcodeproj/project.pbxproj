@@ -66,6 +66,7 @@
 		D4BE963F145DFD2D0025EC00 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BE963E145DFD2D0025EC00 /* AppDelegate.m */; };
 		D4E8A4B514D08ED400993351 /* ActionSheet.js in Sources */ = {isa = PBXBuildFile; fileRef = D4E8A4B314D08ED400993351 /* ActionSheet.js */; };
 		D4E8A4B614D08ED400993351 /* ActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E8A4B414D08ED400993351 /* ActionSheet.m */; };
+		D4FE90AC1603DB3100C76F36 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D4FE90AB1603DB3100C76F36 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -153,6 +154,7 @@
 		D4E8A4B214D08ED400993351 /* ActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionSheet.h; path = "Wikipedia-iOS/Plugins/ActionSheet/ActionSheet.h"; sourceTree = SOURCE_ROOT; };
 		D4E8A4B314D08ED400993351 /* ActionSheet.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ActionSheet.js; path = "Wikipedia-iOS/Plugins/ActionSheet/ActionSheet.js"; sourceTree = SOURCE_ROOT; };
 		D4E8A4B414D08ED400993351 /* ActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionSheet.m; path = "Wikipedia-iOS/Plugins/ActionSheet/ActionSheet.m"; sourceTree = SOURCE_ROOT; };
+		D4FE90AB1603DB3100C76F36 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Resources/splash/Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,6 +394,7 @@
 		D4BE9633145DFD2D0025EC00 /* splash */ = {
 			isa = PBXGroup;
 			children = (
+				D4FE90AB1603DB3100C76F36 /* Default-568h@2x.png */,
 				D43186C3152E351300E19905 /* Default-Portrait@2x~ipad.png */,
 				D43186C0152E350C00E19905 /* Default-Landscape@2x~ipad.png */,
 				D4843A89147DAC2D007499DC /* Default-Landscape~ipad.png */,
@@ -501,6 +504,7 @@
 				99CC918E156D89E2007F84D5 /* Cordova.plist in Resources */,
 				01CDA1C115A4620400A754B9 /* index.html in Resources */,
 				01CDA1C215A4620400A754B9 /* readme.md in Resources */,
+				D4FE90AC1603DB3100C76F36 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
