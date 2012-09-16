@@ -11,13 +11,14 @@
 }
 
 #content {
+    overflow-x: visible !important; /* override the scroller */
+    overflow-y: scroll !important;
+}
+#subcontent {
     padding: 0px 40px !important;
-    width: 520px !important;
     column-width: inherit;
     column-gap: inherit;
     column-fill: inherit;
-    overflow-x: visible !important; /* override the scroller */
-    overflow-y: scroll !important;
 }
 .lightbox-fg {
     left: 10px;

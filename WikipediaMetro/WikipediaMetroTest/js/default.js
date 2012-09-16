@@ -96,6 +96,8 @@
             l10n.initLanguages();
 
             function doStuff() {
+                $('#content').append('<div id="subcontent"></div>'); // should we need this?
+
                 if ($('#appbar').length) {
                     $('#readInCmd')[0].winControl.label = mediaWiki.message('menu-language').plain();
                     $('#pinCmd')[0].winControl.label = mediaWiki.message('menu-win8-pin').plain();
@@ -545,7 +547,7 @@
                 //   totalhits
                 if (data.error) {
                     // ..
-                    $("#content").text('Search error');
+                    $("#subcontent").text('Search error');
                 } else {
                     // Replace the current list
                     var list = SearchResults.itemList;
@@ -585,7 +587,7 @@
         $('#hub').hide();
         $('#back').show();
         clearSearch();
-        $('#content').empty();
+        $('#subcontent').empty();
         $('#title').text(title.replace(/_/g, ' '));
         $('#reader').show();
         sizeContent();
@@ -624,15 +626,15 @@
 
                 */
                 $('#content')
-                    .empty()
                     .attr('lang', lang)
                     .attr('dir', langIsRtl(lang) ? 'rtl' : 'ltr');
+                $('#subcontent').empty()
                 TocSections.itemList.splice(0, TocSections.itemList.length); // clear
                 data.mobileview.sections.forEach(function (section) {
                     if (!section.text) {
                         return;
                     }
-                    var div = insertWikiHtml('#content', section.text);
+                    var div = insertWikiHtml('#subcontent', section.text);
                     if (section.id == 0) {
                         TocSections.itemList.push({
                             title: title.replace(/_/g, ' '),
@@ -648,7 +650,7 @@
                         });
                     }
                 });
-                $('#content').append('<div class="column-spacer"></div>');
+                $('#subcontent').append('<div class="column-spacer"></div>');
             },
             error: function (xhr, status, err) {
                 $('#spinner').hide();
@@ -1048,19 +1050,14 @@
             });
         }
 
-        if ($('#hub').is(':visible')) {
-            $work = $('#hub-list');
-            fudge = 0;
-        } else {
-            //$work = $('#content, #toc');
-            $work = $('#semanticZoomer');
-            fudge = 60;
-        }
         var top = 150;
-        //var top = $work.position().top; // sometimes wrong during switch???
-        var h = $(window).height() - top - fudge;
-        //$('#semanticZoomer').css('height', $(window).height() - top);
-        $work.css('height', h + 'px');
+        var h = $(window).height() - top;
+        if ($('#hub').is(':visible')) {
+            $('#hub-list').css('height', h + 'px');
+        } else {
+            $('#semanticZoomer').css('height', h + 'px')
+            $('#subcontent').css('height', (h - 80) + 'px');
+        }
     }
 
     function showLightbox(element, className) {
