@@ -96,10 +96,12 @@
             l10n.initLanguages();
 
             function doStuff() {
-                $('#readInCmd')[0].winControl.label = mediaWiki.message('menu-language').plain();
-                $('#pinCmd')[0].winControl.label = mediaWiki.message('menu-win8-pin').plain();
-                $('#unpinCmd')[0].winControl.label = mediaWiki.message('menu-win8-unpin').plain();
-                $('#browserCmd')[0].winControl.label = mediaWiki.message('menu-open-browser').plain();
+                if ($('#appbar').length) {
+                    $('#readInCmd')[0].winControl.label = mediaWiki.message('menu-language').plain();
+                    $('#pinCmd')[0].winControl.label = mediaWiki.message('menu-win8-pin').plain();
+                    $('#unpinCmd')[0].winControl.label = mediaWiki.message('menu-win8-unpin').plain();
+                    $('#browserCmd')[0].winControl.label = mediaWiki.message('menu-open-browser').plain();
+                }
                 $('#offline').localize();
 
                 WinJS.Application.onsettings = function (e) {
@@ -426,7 +428,15 @@
                     }
                 } else if (detail.kind === Windows.ApplicationModel.Activation.ActivationKind.search) {
                     doSearch(state.current().lang, detail.queryText);
+                } else if (detail.kind === Windows.ApplicationModel.Activation.ActivationKind.shareTarget) {
+                    var shareOp = detail.shareOperation;
+                    shareOp.data.getTextAsync().done(function (text) {
+                        doLoadPage(state.current().lang, text);
+                        sizeContent();
+                    });
+                    // @fixme report complete at some point?
                 }
+
                 complete();
             });
         });
@@ -1022,8 +1032,8 @@
     function sizeContent() {
         var $work, fudge;
 
-        // Hack to swap orientation in snapped mode
-        if (window.innerWidth <= 320) {
+        // Hack to swap orientation in snapped or share mode
+        if (window.innerWidth <= 700) {
             // Snapped
             $('#toc')[0].winControl.layout = new WinJS.UI.ListLayout();
             $('#hub-list')[0].winControl.layout = new WinJS.UI.ListLayout({
