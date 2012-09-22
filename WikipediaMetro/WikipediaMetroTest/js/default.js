@@ -189,21 +189,19 @@
                 $('#appbar').bind('beforeshow', function () {
                     var lang = state.current().lang,
                         title = state.current().title;
-                    if (Windows.UI.StartScreen.SecondaryTile.exists(tileId(lang, title))) {
-                        $("#pinCmd").hide();
-                        $("#unpinCmd").show();
-                    } else {
-                        $("#unpinCmd").hide();
-                        $("#pinCmd").show();
-                    }
                     if (state.current().type == 'article') {
-                        $('#pinCmd').removeAttr('disabled');
-                        $('#unpinCmd').removeAttr('disabled');
-                        $('#findCmd').removeAttr('disabled');
+                        if (Windows.UI.StartScreen.SecondaryTile.exists(tileId(lang, title))) {
+                            $("#pinCmd").hide();
+                            $("#unpinCmd").show();
+                        } else {
+                            $("#unpinCmd").hide();
+                            $("#pinCmd").show();
+                        }
+                        $('#findCmd').show();
                     } else {
-                        $('#pinCmd').attr('disabled', 'disabled');
-                        $('#unpinCmd').attr('disabled', 'disabled');
-                        $('#findCmd').attr('disabled', 'disabled');
+                        $('#pinCmd').hide();
+                        $('#unpinCmd').hide();
+                        $('#findCmd').hide();
                     }
                 });
 
