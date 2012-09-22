@@ -1180,6 +1180,6 @@ function groupInfo() {
     return {
         enableCellSpanning: true,
         cellWidth: 50,
-        cellHeight: 80
+        cellHeight: 40
     };
 }
