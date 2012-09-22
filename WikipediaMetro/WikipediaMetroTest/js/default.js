@@ -649,6 +649,7 @@
                     }
                 });
                 $('#subcontent').append('<div class="column-spacer"></div>');
+                WinJS.UI.Animation.enterPage($('#content')[0], 40);
             },
             error: function (xhr, status, err) {
                 $('#spinner').hide();
