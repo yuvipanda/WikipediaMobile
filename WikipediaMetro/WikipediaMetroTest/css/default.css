@@ -10,8 +10,8 @@
     position:  absolute;
     left:  120px;
     top:  30px;
-    height: 90px;
-    overflow-y: hidden;
+    /*height: 90px;
+    overflow-y: hidden;*/
 }
 #back {
     position: absolute;

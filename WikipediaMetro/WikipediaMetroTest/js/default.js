@@ -1057,6 +1057,18 @@
             $('#semanticZoomer').css('height', h + 'px')
             $('#subcontent').css('height', (h - 80) + 'px');
         }
+
+        // Size header to fit
+        var $title = $('#title');
+        var px = 60;
+        $title.css('font-size', px + 'px');
+        while ($title.height() > 90) {
+            px -= 5;
+            if (px < 10) {
+                break;
+            }
+            $title.css('font-size', px + 'px');
+        }
     }
 
     function showLightbox(element, className) {
