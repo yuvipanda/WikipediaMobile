@@ -10,8 +10,8 @@
     position:  absolute;
     left:  120px;
     top:  30px;
-    height: 90px;
-    overflow-y: hidden;
+    /*height: 90px;
+    overflow-y: hidden;*/
 }
 #back {
     position: absolute;
@@ -47,9 +47,12 @@
 .win-listview {
     height: 600px;
 }
+#hub-list .win-listview {
+    margin-bottom: 50px;
+}
 .photo-item {
     width: 290px;
-    height: 170px;
+    height: 140px;
     border: none;
     padding: 0;
     overflow: hidden;
@@ -57,7 +60,7 @@
 }
 .win-listview .win-viewport.win-horizontal .photo-item.large {
     width: 590px;
-    height: 350px;
+    height: 290px;
 }
 .featured-item h5 {
     display: none;
@@ -88,7 +91,7 @@
 
 .featured-item {
     width: 170px;
-    height: 170px;
+    height: 140px;
     border: none;
     padding: 0px;
     overflow: hidden;
@@ -96,7 +99,7 @@
 }
 .featured-item.large {
     width: 350px;
-    height: 170px;
+    height: 290px;
 }
 .featured-item h5 {
     display: none;
@@ -140,7 +143,7 @@
 
 .onthisday-item {
     width: 288px;
-    height: 168px;
+    height: 138px;
     border: none;
     padding: 0px;
     overflow: hidden;
@@ -321,7 +324,7 @@ button.show-table {
 @media all and (min-width: 321px) {
     /* Fullscreen or most of screen */
     #subcontent {
-        column-width: 300px;
+        column-width: 280px;
         column-gap: 20px;
         column-fill: auto;
     }

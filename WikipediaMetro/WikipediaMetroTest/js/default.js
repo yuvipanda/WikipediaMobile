@@ -189,21 +189,19 @@
                 $('#appbar').bind('beforeshow', function () {
                     var lang = state.current().lang,
                         title = state.current().title;
-                    if (Windows.UI.StartScreen.SecondaryTile.exists(tileId(lang, title))) {
-                        $("#pinCmd").hide();
-                        $("#unpinCmd").show();
-                    } else {
-                        $("#unpinCmd").hide();
-                        $("#pinCmd").show();
-                    }
                     if (state.current().type == 'article') {
-                        $('#pinCmd').removeAttr('disabled');
-                        $('#unpinCmd').removeAttr('disabled');
-                        $('#findCmd').removeAttr('disabled');
+                        if (Windows.UI.StartScreen.SecondaryTile.exists(tileId(lang, title))) {
+                            $("#pinCmd").hide();
+                            $("#unpinCmd").show();
+                        } else {
+                            $("#unpinCmd").hide();
+                            $("#pinCmd").show();
+                        }
+                        $('#findCmd').show();
                     } else {
-                        $('#pinCmd').attr('disabled', 'disabled');
-                        $('#unpinCmd').attr('disabled', 'disabled');
-                        $('#findCmd').attr('disabled', 'disabled');
+                        $('#pinCmd').hide();
+                        $('#unpinCmd').hide();
+                        $('#findCmd').hide();
                     }
                 });
 
@@ -651,6 +649,7 @@
                     }
                 });
                 $('#subcontent').append('<div class="column-spacer"></div>');
+                WinJS.UI.Animation.enterPage($('#content')[0], 40);
             },
             error: function (xhr, status, err) {
                 $('#spinner').hide();
@@ -1077,6 +1076,18 @@
             $('#semanticZoomer').css('height', h + 'px')
             $('#subcontent').css('height', (h - 80) + 'px');
         }
+
+        // Size header to fit
+        var $title = $('#title');
+        var px = 60;
+        $title.css('font-size', px + 'px');
+        while ($title.height() > 90) {
+            px -= 5;
+            if (px < 10) {
+                break;
+            }
+            $title.css('font-size', px + 'px');
+        }
     }
 
     function showLightbox(element, className) {
@@ -1199,6 +1210,6 @@ function groupInfo() {
     return {
         enableCellSpanning: true,
         cellWidth: 50,
-        cellHeight: 80
+        cellHeight: 40
     };
 }
