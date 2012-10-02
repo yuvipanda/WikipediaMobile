@@ -855,6 +855,25 @@
         });
     }
 
+    function largeImage(url) {
+        // This is a quick hack, which should work well enough for featured photos.
+        // Others may not scale up properly...
+        var matches = /^(.*\/)(\d+)+(px-[^/]*)$/.exec(url);
+        if (matches) {
+            var prefix = matches[1],
+                width = parseInt(matches[2]),
+                suffix = matches[3],
+                double = width * 2,
+                newUrl = prefix + double + suffix;
+            console.log(url);
+            console.log(newUrl);
+            return newUrl;
+        } else {
+            // Unrecognized image format
+            return url;
+        }
+    }
+
     function initHub(lang) {
         doShowHub(lang);
 
@@ -966,7 +985,7 @@
                     title: title,
                     heading: '',
                     snippet: '',
-                    image: image,
+                    image: (index == 0) ? largeImage(image) : image,
                     imageid: imageid,
                     group: 'Featured pictures',
                     groupText: mediaWiki.message('section-featured-pictures').plain(),
