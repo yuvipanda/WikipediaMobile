@@ -939,7 +939,7 @@
                     title: title,
                     heading: '',
                     snippet: stripHtmlTags(html).substr(0, 100) + '...',
-                    image: image,
+                    image: largeImage(image),
                     group: 'Featured articles',
                     groupText: mediaWiki.message('section-featured-articles').plain(),
                     style: (index < 1) ? 'featured-item large' : 'featured-item'
