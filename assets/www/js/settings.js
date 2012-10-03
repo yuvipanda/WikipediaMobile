@@ -8,9 +8,10 @@ window.appSettings = function() {
 
 		if(fontSizes.length == 0) {
 			fontSizes = [
-				{value: '75%', name: mw.message('settings-font-size-smaller').plain() },
 				{value: '100%', name: mw.message('settings-font-size-normal').plain() },
-				{value: '125%', name: mw.message('settings-font-size-larger').plain() }
+				{value: '150%', name: mw.message('settings-font-size-large').plain() },
+				{value: '200%', name: mw.message('settings-font-size-larger').plain() },
+				{value: '300%', name: mw.message('settings-font-size-enormous').plain() }
 			];
 		}
 
