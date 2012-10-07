@@ -873,6 +873,39 @@
         }
     }
 
+    /**
+     * @param {Image} image
+     * @return {String} URL
+     */
+    function makeFitImage(image, width, height) {
+        var $canvas = $('<canvas>').attr('width', width).attr('height', height),
+            canvas = $canvas[0],
+            ctx = canvas.getContext('2d');
+        // hack hack
+        if (width > image.width) {
+            width = image.width;
+        }
+        if (height > image.height) {
+            height = image.height;
+        }
+        ctx.drawImage(image,
+            // source
+            Math.floor((image.width - width) / 2), Math.floor((image.height - height) / 2), width, height,
+            // dest
+            0, 0, width, height
+        );
+        return canvas.toDataURL();
+    }
+
+    /**
+     * @param {Image} image
+     * @return {String} URL
+     */
+    function makeSquareImage(image) {
+        var size = Math.min(image.width, image.height);
+        return makeFitImage(image, size, size);
+    }
+
     function initHub(lang) {
         doShowHub(lang);
 
@@ -931,19 +964,28 @@
                     if (image.substr(0, 2) == '//') {
                         image = 'https:' + image;
                     }
+                    image = largeImage(image);
                 } else {
                     image = '/images/secondary-tile.png';
                 }
                 nItems++;
-                list.push({
+                var listItem = {
                     title: title,
                     heading: '',
                     snippet: stripHtmlTags(html).substr(0, 100) + '...',
-                    image: largeImage(image),
+                    image: '#',
                     group: 'Featured articles',
                     groupText: mediaWiki.message('section-featured-articles').plain(),
                     style: (index < 1) ? 'featured-item large' : 'featured-item'
-                });
+                };
+                list.push(listItem);
+                var preload = new Image();
+                preload.src = image;
+                preload.onload = function () {
+                    var squared = makeSquareImage(preload);
+                    listItem.image = squared;
+                    document.getElementById('hub-list').winControl.forceLayout();
+                };
             });
             completeAnother();
         });
@@ -957,7 +999,10 @@
                     $links = $html.find('a'),
                     $imgs = $html.find('img'),
                     title = '',
-                    image = '';
+                    image = '',
+                    imageStyle = '',
+                    imageWidth = 0,
+                    imageHeight = 0;
                 for (var i = 0; i < $links.length; i++) {
                     var $link = $($links[i]);
                     if ($link.find('img').length) {
@@ -977,23 +1022,58 @@
                     if (image.substr(0, 2) == '//') {
                         image = 'https:' + image;
                     }
+                    image = image;
+                    var width = parseFloat($imgs.attr('width')),
+                        height = parseFloat($imgs.attr('height'));
+                    if (index == 0) {
+                        image = largeImage(image);
+                        width *= 2;
+                        height *= 2;
+                        var aspect = width / height;
+                        if (aspect > (3 / 2)) {
+                            // wider than 3:2
+                            imageHeight = height;
+                            imageWidth = Math.floor(height * 3 / 2);
+                            imageStyle = 'wide';
+                        } else if (aspect >= 1 && aspect <= (3 / 2)) {
+                            // between 1:1 and 3:2
+                            imageWidth = width;
+                            imageHeight = Math.floor(width * 2 / 3);
+                            imageStyle = 'wide';
+                        } else if (aspect < 1 && aspect >= (2 / 3)) {
+                            // between 2:3 and 1:1
+                            imageWidth = Math.floor(width * 2 / 3);
+                            imageHeight = height;
+                            imageStyle = 'tall';
+                        } else {
+                            // taller than 2:3
+                            imageWidth = width;
+                            imageHeight = Math.floor(width * 3 / 2);
+                            imageStyle = 'tall';
+                        }
+                    } else {
+                        imageWidth = Math.min(width, height);
+                        imageHeight = Math.min(width, height);
+                    }
                 }
-                var imageid = ("img" + Math.random()).replace('.', '');
                 nItems++;
-                list.push({
+                var listItem = {
                     title: title,
                     heading: '',
                     snippet: '',
-                    image: (index == 0) ? largeImage(image) : image,
-                    imageid: imageid,
+                    image: '#',
                     group: 'Featured pictures',
                     groupText: mediaWiki.message('section-featured-pictures').plain(),
-                    style: (index == 0) ? 'photo-item large' : 'photo-item'
-                });
-
-                //fetchImage(state.current().lang, image, 600, 600, function (img) {
-                //    $('#' + imageid).attr('src', img);
-                //});
+                    style: (index == 0) ? ('photo-item large ' + imageStyle) : 'photo-item'
+                };
+                list.push(listItem);
+                var preload = new Image();
+                preload.src = image;
+                preload.onload = function () {
+                    var fit = makeFitImage(preload, imageWidth, imageHeight);
+                    listItem.image = fit;
+                    document.getElementById('hub-list').winControl.forceLayout();
+                };
             });
             completeAnother();
         });
@@ -1071,7 +1151,7 @@
         var top = 150;
         var h = $(window).height() - top;
         if ($('#hub').is(':visible')) {
-            $('#hub-list').css('height', h + 'px');
+            $('#hub-list').css('height', (h + 20) + 'px');
         } else {
             $('#semanticZoomer').css('height', h + 'px')
             $('#subcontent').css('height', (h - 80) + 'px');
@@ -1209,7 +1289,7 @@
 function groupInfo() {
     return {
         enableCellSpanning: true,
-        cellWidth: 50,
-        cellHeight: 40
+        cellWidth: 150,
+        cellHeight: 150
     };
 }
