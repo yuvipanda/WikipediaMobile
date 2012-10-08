@@ -666,9 +666,22 @@
             title = state.current().title,
             lang = state.current().lang,
             url = articleUrl(state.current().lang, title);
-        request.data.setUri(new Windows.Foundation.Uri(url));
-        request.data.properties.title = title + ' - Wikipedia';
-        request.data.properties.description = 'Link to Wikipedia article';
+        // Check for selection...
+        var selection = document.getSelection();
+        if (selection.isCollapsed) {
+            // No active selection; send the article URL
+            request.data.setUri(new Windows.Foundation.Uri(url));
+            request.data.properties.title = title + ' - Wikipedia';
+            request.data.properties.description = 'Link to Wikipedia article'; // @fixme l10n
+        } else {
+            // Active selection; send the text.
+            var range = selection.getRangeAt(0);
+            var fragment = range.cloneContents();
+            var text = $(fragment).text();
+            request.data.setText(text);
+            request.data.properties.title = 'Content from ' + title + ' - Wikipedia';
+            request.data.properties.description = 'Text from Wikipedia article'; // @fixme l10n
+        }
     });
 
     function articleUrl(lang, title) {
