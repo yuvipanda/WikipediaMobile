@@ -75,12 +75,18 @@
         return 'Wikipedia.' + lang + '.' + md5(title.replace(/_/g, ' '));
     }
 
+    // hack hack hack for l10n
     window.preferencesDB = {
         get: function (key) {
-            return 'en';
+            return navigator.userLanguage;
         }
     }
     window.ROOT_URL = '';
+
+    function getLanguage() {
+        // @fixme whitelist languages, just in case!
+        return navigator.userLanguage.replace(/-.*$/, '');
+    }
 
     var beenInitialized = false;
     function setupApp() {
@@ -116,7 +122,7 @@
                     WinJS.UI.SettingsFlyout.populateSettings(e);
                 }
 
-                initHub('en');
+                initHub(getLanguage());
                 // Handler for links!
                 $(document).on('click', 'a', function (event) {
                     var url = $(this).attr('href'),
