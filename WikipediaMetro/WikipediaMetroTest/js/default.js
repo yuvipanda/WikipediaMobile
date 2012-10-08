@@ -165,6 +165,19 @@
                     event.preventDefault();
                     showHistoryMenu(this);
                 });
+                $(document).bind('keydown', function (event) {
+                    // Backspace to go back
+                    if (event.keyCode == 8) {
+                        doGoBack();
+                        event.preventDefault();
+                    }
+                    if (event.ctrlKey && event.keyCode == 'F'.charCodeAt(0)) {
+                        if (state.current().type == 'article') {
+                            $('#findCmd').click();
+                            event.preventDefault();
+                        }
+                    }
+                });
                 $('#resultlist').bind('iteminvoked', function (event) {
                     var index = event.originalEvent.detail.itemIndex;
                     var selected = SearchResults.itemList.getItem(index);
@@ -311,10 +324,17 @@
                     range.collapse();
                     $('#find-input').focus();
                 });
+                $('#find-input').bind('keydown', function (event) {
+                    // Don't let keys go through to document, eg backspace handler
+                    event.stopPropagation();
+                });
                 $('#find-input').bind('keypress', function (event) {
                     if (event.keyCode == 13) {
                         event.preventDefault();
                         findNext();
+                    } else if (event.keyCode == 27) {
+                        event.preventDefault();
+                        $('#find-close').click();
                     }
                 });
                 $('#find-prev').click(function () {
@@ -649,7 +669,10 @@
                     }
                 });
                 $('#subcontent').append('<div class="column-spacer"></div>');
-                WinJS.UI.Animation.enterPage($('#content')[0], 40);
+                WinJS.UI.Animation.enterPage($('#content')[0], 40).done(function () {
+                    // Set focus to allow keyboard scrolling
+                    $('#content').focus();
+                });
             },
             error: function (xhr, status, err) {
                 $('#spinner').hide();
@@ -944,6 +967,8 @@
                 if (nErrors) {
                     $('#offline').show();
                 }
+                // Set focus for keyboard scrolling
+                $('#hub-list').focus();
             }
         };
 
@@ -1242,6 +1267,10 @@
     }
 
     function doGoBack() {
+        if (state.stack.length < 2) {
+            // Nowhere left to go...
+            return;
+        }
         var discard = state.pop(),
             redo = state.pop();
         if (redo.type == 'hub') {
