@@ -9,7 +9,6 @@ gen/*
 lint.xml
 *~
 assets/www/sitematrix.json
-res/values-*
 
 # Mac OS X ignores
 .DS_Store*
