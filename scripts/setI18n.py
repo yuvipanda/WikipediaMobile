@@ -84,6 +84,6 @@ regex = re.compile( r'messages-([a-z]{2}(-.*)?).properties' ) #Android doesn't m
 for fname in dirList:
 	if regex.search( fname ) is not None:
 		lang = regex.sub( r'\1', fname )
-		if lang != 'qqq' and lang != 'en':
+		if lang != 'qqq':
 			messages = Messages( lang )
 			messages.setAndroidI18n( androidParamNames )
