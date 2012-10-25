@@ -230,3 +230,18 @@
 - Remove 'Select Text' menu item on Android 3.x+
 - Migrate to PhoneGap 1.7
 - Remove opaque overlay on search bar found in some Android devices
+
+## Android v1.3beta2 ##
+
+## Common ##
+
+- Plenty of RTL fixes
+- Fix bug causing references section to show up twice
+
+### Android ###
+
+- Migrate to PhoneGap 2.1
+
+### iOS ###
+
+- Fix issues with iOS6 (Saved pages, iPhone 5 support)
