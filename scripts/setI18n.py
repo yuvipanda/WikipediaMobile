@@ -6,8 +6,7 @@ import StringIO
 import os
 import re
 
-androidParamNames = { u"appname": u"app_name", u"search-description": u"search_description", u"search-hintwiki": u"search_hint_wiki" }
-
+androidParamNames = { u"appname": u"app_name", u"search-description": u"search_description", u"search-hintwiki": u"search_hint_wiki", u"appname-beta": u"app_name_beta" }
 
 class Messages:
 
