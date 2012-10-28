@@ -54,18 +54,20 @@
 	
 	<!-- MobileFrontend -->
 	<script type="text/javascript" charset="utf-8" src="js/mobilefrontend.js"></script>
-	<script type="text/javascript" charset="utf-8" src="MobileFrontend/javascripts/toggle.js"></script>
-	<script type="text/javascript" charset="utf-8" src="MobileFrontend/javascripts/references.js"></script>
+	<script type="text/javascript" charset="utf-8" src="MobileFrontend/javascripts/modules/mf-toggle.js"></script>
+	<script type="text/javascript" charset="utf-8" src="MobileFrontend/javascripts/modules/mf-references.js"></script>
 
 	<!-- platform-specific setup and overrides -->
-  <script type="text/javascript" charset="utf-8" src="js/platform-stub.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/platform-stub.js"></script>
 
 	<link rel="stylesheet" href="leaflet/leaflet.css" />
 
-	<link rel="stylesheet" href="MobileFrontend/stylesheets/hacks.css" />
-	<link rel="stylesheet" href="MobileFrontend/stylesheets/common.css" />
-	<link rel="stylesheet" href="MobileFrontend/stylesheets/sections.css" />
-	<link rel="stylesheet" href="MobileFrontend/stylesheets/references.css" />
+	<link rel="stylesheet" href="MobileFrontend/stylesheets/common/reset.css" />
+	<link rel="stylesheet" href="MobileFrontend/stylesheets/common/mf-common.css" />
+	<link rel="stylesheet" href="MobileFrontend/stylesheets/common/mf-typography.css" />
+	<link rel="stylesheet" href="MobileFrontend/stylesheets/modules/mf-references.css" />
+	<link rel="stylesheet" href="MobileFrontend/stylesheets/modules/mf-toggle.css" />
+	<link rel="stylesheet" href="MobileFrontend/stylesheets/common/mf-hacks.css" />
 	<link rel="stylesheet" href="app.css" />
 
 </head>
@@ -144,10 +146,12 @@
 		</script>
 
 		<script type="text/html" id="content-template">
-            <h1>{{title}}</h1>
-            <div class="lead">
-                {{{lead.text}}}
-            </div>
+			<h1>{{title}}</h1>
+			<div class="lead">
+				<div class="content_block openSection">
+					{{{lead.text}}}
+				</div>
+			</div>
 			{{#sections}}
 			<div class="section">
 				<h{{level}} class="section_heading" id="section_{{id}}" data-section-id="{{id}}">{{{line}}} <button></button></h{{level}}>
