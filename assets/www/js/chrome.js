@@ -203,7 +203,12 @@ window.chrome = function() {
 
 	// Bind to links inside reference reveal, handle them properly
 	function onClickReference() {
-			chrome.initContentLinkHandlers("#mf-references");
+		chrome.initContentLinkHandlers( "#mf-references" );
+		if(l10n.isLangRTL(app.curPage.lang)) {
+			$( "#mf-references" ).attr('dir', 'rtl');
+		} else {
+			$( "#mf-references" ).attr('dir', 'ltr');
+		}
 	}
 
 	function loadFirstPage() {
