@@ -141,7 +141,9 @@ window.app = function() {
 
 	function setCaching(enabled, success) {
 		// Do nothing by default
-		success();
+		if( typeof success === "function" ) {
+			success();
+		}
 	}
 
 	function navigateTo(title, lang, options) {
