@@ -75,6 +75,7 @@ window.chrome = function() {
 				mw.mobileFrontend.toggle.wm_toggle_section( sectionID );
 				chrome.setupScrolling( "#content" );
 			});
+			return false;
 		});
 	}
 
@@ -183,6 +184,8 @@ window.chrome = function() {
 			mw.mobileFrontend.references.init($("#content")[0], true, {onClickReference: onClickReference} );
 
 			app.setFontSize(preferencesDB.get('fontSize'));
+
+			handleHeaderTimeout();
 		});
 
 	}
@@ -194,6 +197,45 @@ window.chrome = function() {
 
 	function loadFirstPage() {
 		return app.loadMainPage();
+	}
+
+	var headerTimeout;
+	var HEADER_TIMEOUT_INTERVAL = 10 * 1000; // Timeout before the header disappears
+	function handleHeaderTimeout() {
+		var $header = $( '#titlebar' );
+
+		function resetTimeout() {
+			clearTimeout( headerTimeout );
+			headerTimeout = setTimeout( hideHeader, HEADER_TIMEOUT_INTERVAL );
+		}
+
+		function showHeader() {
+			$header.removeClass( 'fadeOut' );
+			resetTimeout();
+		}
+
+		function hideHeader() {
+			if( $header.is( ':visible' ) &&
+					$( window ).scrollTop() > 48  &&  // Leave no awkward whitespace on top!
+					!$( '#search' ).hasClass( 'inProgress' ) && // Not if the spinner is spinning, no!
+					app.curPage != null ) { // Only if we have an actively visible non-error page
+				$header.addClass( 'fadeOut' );
+
+			}
+		}
+
+
+		$( 'body' ).on( 'touchstart touchmove touchdown', resetTimeout );
+		$( 'body' ).click( showHeader );
+		$( window ).scroll( function() {
+			if( $( window ).scrollTop() < 48 * 2 ) {
+				showHeader();
+			}
+		} );
+		headerTimeout = setTimeout( hideHeader, HEADER_TIMEOUT_INTERVAL );
+
+		chrome.showHeader = showHeader;
+		chrome.hideHeader = hideHeader;
 	}
 
 	function isTwoColumnView() {
@@ -310,6 +352,7 @@ window.chrome = function() {
 				// ...and open it in parent context for reals.
 				chrome.openExternalLink(url);
 			}
+			chrome.showHeader();
 		});
 	}
 	
@@ -353,6 +396,8 @@ window.chrome = function() {
 		setupScrolling: setupScrolling,
 		scrollTo: scrollTo,
 		populateSection: populateSection,
-		initContentLinkHandlers: initContentLinkHandlers
+		initContentLinkHandlers: initContentLinkHandlers,
+		showHeader: null, // initialized inside handleHeaderTimeout
+		hideHeader: null  // initialized inside handleHeaderTimeout
 	};
 }();
