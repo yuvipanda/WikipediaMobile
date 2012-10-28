@@ -832,3 +832,10 @@ body[dir=rtl] .titlebarItem {
 	padding-left: auto;
 	padding-right: 32px;
 }
+
+/* RTL citations
+ * reversing #mf-references button from mf-references.css */
+#mf-references[dir=rtl] button {
+	left: 22px;
+	right: auto;
+}
