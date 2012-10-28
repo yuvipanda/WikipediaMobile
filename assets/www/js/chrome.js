@@ -40,9 +40,9 @@ window.chrome = function() {
 		$('base').attr('href', page.getCanonicalUrl());
 
 		if(l10n.isLangRTL(page.lang)) {
-			$("#content").attr('dir', 'rtl');
+			$("#main").attr('dir', 'rtl');
 		} else {
-			$("#content").attr('dir', 'ltr');
+			$("#main").attr('dir', 'ltr');
 		}
 		$("#main").html(page.toHtml());
 
