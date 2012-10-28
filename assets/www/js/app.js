@@ -121,6 +121,11 @@ window.app = function() {
 		return app.baseUrlForLanguage(lang) + "/wiki/" + encodeURIComponent(title.replace(/ /g, '_'));
 	}
 
+	function resourceLoaderURL( lang ) {
+		// Path to the ResourceLoader load.php to be used for loading site-specific css
+		return "http://bits.wikimedia.org/" + lang + ".wikipedia.org/load.php"
+	}
+
 	function baseUrlForLanguage(lang) {
 		return window.PROTOCOL + '://' + lang + '.' + PROJECTNAME + '.org';
 	}
@@ -253,6 +258,7 @@ window.app = function() {
 		titleForUrl:titleForUrl,
 		languageForUrl: languageForUrl,
 		baseUrlForLanguage: baseUrlForLanguage,
+		resourceLoaderURL: resourceLoaderURL,
 		setCaching: setCaching,
 		loadPage: loadPage,
 		loadCachedPage: loadCachedPage, 
