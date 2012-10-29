@@ -43,6 +43,8 @@
 					lastCollapsibleSection.subSections.push( section );
 				}
 			});
+
+			this.isMainPage = 'mainpage' in rawJSON.mobileview;
 		}
 
 		this.title = title;

@@ -1,10 +1,10 @@
 window.app = function() {
 
-	var wikis = [];
+	var wikis = null;
 
 	function getWikiMetadata() {
 		var d = $.Deferred();
-		if(wikis.length === 0) {
+		if( wikis === null ) {
 			$.get(ROOT_URL + 'wikis.json').done(function(data) {
 				wikis = JSON.parse(data);
 				d.resolve(wikis);
