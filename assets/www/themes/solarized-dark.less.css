@@ -36,6 +36,18 @@ body.theme-solarized-dark #about-page-overlay {
 body.theme-solarized-dark #about-page-overlay #about-version {
   color: #fdf6e3;
 }
+body.theme-solarized-dark #mf-references {
+  /* Flip stuff around for Reference reveal */
+
+  background-color: #fdf6e3;
+  color: #002b36;
+}
+body.theme-solarized-dark #mf-references a {
+  color: #859900;
+}
+body.theme-solarized-dark #mf-references h3 {
+  color: #002b36;
+}
 body.theme-solarized-dark .deleteButton {
   background: url(themes/solarized-dark/spr.png) 9px -95px no-repeat;
 }
