@@ -87,6 +87,14 @@
 			</div>
 
 			<div class="item">
+				<label for="themeSelector"><msg key="settings-theme-selector-label"></msg></label>
+				<select id="themeSelector">
+					{{#themes}}
+					<option value="{{name}}">{{displayName}}</option>
+					{{/themes}}
+				</select>
+			</div>
+			<div class="item">
 				<label for="fontSizeSelector"><msg key="settings-font-size-label"></msg></label>
 				<select id="fontSizeSelector">
 					{{#fontSizes}}
@@ -324,6 +332,9 @@
 		<!-- Contains site specific styles - Mediawiki:Mobile.css loaded with RL -->
 	</div>
 
+	<div id="theme-style">
+		<!-- Contains specific styles for the user's theme -->
+	</div>
 	<menu id="appMenu" type="context">
 		<command type="command" id="languageCmd" icon="optionLanguage.png" disabled action="read-in" />
 		<command type="command" id="nearbyCmd" icon="optionNearMe.png" action="near-me" />
