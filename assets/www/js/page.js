@@ -72,7 +72,6 @@
 		return app.makeAPIRequest({
 			action: 'mobileview',
 			page: title,
-			redirects: 'yes',
 			prop: 'sections|text',
 			sections: sections,
 			sectionprop: 'level|line',
