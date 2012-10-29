@@ -144,6 +144,20 @@ window.app = function() {
 		$('#main').css('font-size', size);
 	}
 
+	var curTheme = null;
+	function setTheme( name ) {
+		var url = ROOT_URL + 'themes/' + name + '.less.css';
+		if( name == curTheme ) {
+			return;
+		}
+		$.get( url ).done( function( data ) {
+			chrome.loadCSS( 'theme-style', data );
+			$( 'body' ).removeClass( 'theme-' + curTheme ).addClass( 'theme-' + name );
+			curTheme = name;
+			preferencesDB.set( 'theme', name );
+		} );
+	}
+
 	function setCaching(enabled, success) {
 		// Do nothing by default
 		if( typeof success === "function" ) {
@@ -250,6 +264,7 @@ window.app = function() {
 	}
 	var exports = {
 		setFontSize: setFontSize,
+		setTheme: setTheme,
 		setContentLanguage: setContentLanguage,
 		navigateToPage: navigateToPage,
 		getCurrentUrl: getCurrentUrl,

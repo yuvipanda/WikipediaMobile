@@ -41,9 +41,13 @@ window.chrome = function() {
 			return;
 		}
 		rl.requestSiteCSS( lang ).done( function( css ) {
-			$( '#site-style' ).html( '<style>' + css + '</style>' );
+			loadCSS( 'site-style', css );
 			curSiteCSSLang = lang;
 		} );
+	}
+
+	function loadCSS( name, css ) {
+		$( '#' + name ).html( '<style>' + css + '</style>' );
 	}
 
 	function renderHtml(page) {
@@ -195,6 +199,7 @@ window.chrome = function() {
 			mw.mobileFrontend.references.init($("#content")[0], true, {onClickReference: onClickReference} );
 
 			app.setFontSize(preferencesDB.get('fontSize'));
+			app.setTheme( preferencesDB.get( 'theme' ) );
 
 			handleHeaderTimeout();
 		});
@@ -409,6 +414,7 @@ window.chrome = function() {
 		populateSection: populateSection,
 		initContentLinkHandlers: initContentLinkHandlers,
 		showHeader: null, // initialized inside handleHeaderTimeout
-		hideHeader: null  // initialized inside handleHeaderTimeout
+		hideHeader: null,  // initialized inside handleHeaderTimeout
+		loadCSS: loadCSS
 	};
 }();

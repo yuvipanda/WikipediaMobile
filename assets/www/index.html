@@ -87,6 +87,14 @@
 			</div>
 
 			<div class="item">
+				<label for="themeSelector"><msg key="settings-theme-selector-label"></msg></label>
+				<select id="themeSelector">
+					{{#themes}}
+					<option value="{{name}}">{{displayName}}</option>
+					{{/themes}}
+				</select>
+			</div>
+			<div class="item">
 				<label for="fontSizeSelector"><msg key="settings-font-size-label"></msg></label>
 				<select id="fontSizeSelector">
 					{{#fontSizes}}
@@ -222,7 +230,7 @@
 		</div>
 	</header>
 
-	<div id="about-page-overlay">
+	<div id="about-page-overlay" class="overlay">
 		<header>
 			<div class="titlebar">
 				<div class="titlebarItem"><msg key="about-page-title">About</msg></div>
@@ -244,7 +252,7 @@
 		</div>
 	</div>
 
-	<div id="savedPages">
+	<div id="savedPages" class="overlay">
 		<header>
 			<div class="titlebar">
 				<div class="titlebarItem"><msg key="saved-pages-title">Saved Pages</msg></div>
@@ -257,7 +265,7 @@
 		</div>
 	</div>
 
-	<div id="history">
+	<div id="history" class="overlay">
 		<header>
 			<div class="titlebar">
 				<div class="titlebarItem"><msg key="history-title">History</msg></div>
@@ -270,13 +278,13 @@
 		</div>
 	</div>
 
-	<div id="searchresults">
+	<div id="searchresults" class="overlay">
 		<div class="scroller">
 			<div id="resultList"></div>
 		</div>
 	</div>
 
-	<div id="settings">
+	<div id="settings" class="overlay">
 		<!-- Not using header or .scroller here to work around bug 33884; it caused -->
 		<!-- the selects to become unselectable on Android 2.x for some reason. -->
 		<div>
@@ -290,7 +298,7 @@
 		</div>
 	</div>
 
-	<div id="langlinks">
+	<div id="langlinks" class="overlay">
 		<header>
 			<div class="titlebar">
 				<div class="titlebarItem"><msg key="langlinks-title">Read article in...</msg></div>
@@ -310,7 +318,7 @@
 		</div>
 	</div>
 
-	<div id="nearby-overlay">
+	<div id="nearby-overlay" class="overlay">
 		<header>
 			<div class="titlebar">
 				<div class="titlebarItem"><msg key="nearby-title">Nearby</msg></div>
@@ -324,6 +332,9 @@
 		<!-- Contains site specific styles - Mediawiki:Mobile.css loaded with RL -->
 	</div>
 
+	<div id="theme-style">
+		<!-- Contains specific styles for the user's theme -->
+	</div>
 	<menu id="appMenu" type="context">
 		<command type="command" id="languageCmd" icon="optionLanguage.png" disabled action="read-in" />
 		<command type="command" id="nearbyCmd" icon="optionNearMe.png" action="near-me" />
