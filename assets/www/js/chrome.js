@@ -35,8 +35,19 @@ window.chrome = function() {
 		return $('#search').hasClass('inProgress');
 	}
 
-	function renderHtml(page) {
+	var curSiteCSSLang = null;
+	function loadSiteCSS( lang ) {
+		if( lang === curSiteCSSLang ) {
+			return;
+		}
+		rl.requestSiteCSS( lang ).done( function( css ) {
+			$( '#site-style' ).html( '<style>' + css + '</style>' );
+			curSiteCSSLang = lang;
+		} );
+	}
 
+	function renderHtml(page) {
+		loadSiteCSS( page.lang );
 		$('base').attr('href', page.getCanonicalUrl());
 
 		if(l10n.isLangRTL(page.lang)) {
