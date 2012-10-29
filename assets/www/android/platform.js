@@ -56,6 +56,11 @@ chrome.scrollTo = function(selector, posY) {
 }
 
 chrome.addPlatformInitializer(function() {
+
+	if( window.cordovaAlwaysEnableNativeWebSQLShim !== true ) {
+		throw "You upgraded cordova but forgot to add back / fix the websql shim!";
+	}
+
 	if ($('html').hasClass('android-2')) {
 		// Android 2.2/2.3 doesn't do overflow:scroll
 		// so we need to engage alternate styles for phone view.

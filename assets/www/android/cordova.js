@@ -23,6 +23,12 @@
 
 ;(function() {
 
+// Just a flag set here and checked in android/platform.js
+// Warns us if we upgrade cordova without updating the webSQL native hack
+// Makes me ugh. See L1116
+window.cordovaAlwaysEnableNativeWebSQLShim = true;
+
+
 // file: lib/scripts/require.js
 var require,
     define;
@@ -1107,7 +1113,12 @@ module.exports = {
                     }
                 }
 
-                if (db === null) {
+                // Soo..... we always need to use the 'native shim' cordova database,
+                // even if a websql version is available.
+                // This is because Cordova <=1.4 gave us native version, and ones after
+                // seem to give us the webkit version, hence storing our stuff in two
+                // places, and losing saved pages every so often
+                if (db === null || true) {
                     return storage.openDatabase(name, version, desc, size);
                 }
                 else {
