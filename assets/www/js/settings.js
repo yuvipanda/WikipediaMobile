@@ -18,8 +18,8 @@ window.appSettings = function() {
 
 		if( themes.length === 0 ) {
 			themes = [
-				{ name: 'light', displayName: 'Light', fileName: 'themes/light.less.css' },
-				{ name: 'solarized-dark', displayName: 'Solarized Dark', fileName: 'themes/solarized-dark.less.css' }
+				{ name: 'light', displayName: mw.msg( 'theme-light' ), fileName: 'themes/light.less.css' },
+				{ name: 'solarized-dark', displayName: mw.msg( 'theme-solarized-dark' ), fileName: 'themes/solarized-dark.less.css' }
 			];
 		}
 
