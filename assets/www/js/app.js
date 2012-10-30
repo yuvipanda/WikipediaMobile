@@ -151,7 +151,7 @@ window.app = function() {
 			return;
 		}
 		$.get( url ).done( function( data ) {
-			chrome.loadCSS( 'theme-style', data );
+			chrome.loadCSS( 'theme-style', data, ROOT_URL );
 			$( 'body' ).removeClass( 'theme-' + curTheme ).addClass( 'theme-' + name );
 			curTheme = name;
 			preferencesDB.set( 'theme', name );

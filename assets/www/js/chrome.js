@@ -46,8 +46,17 @@ window.chrome = function() {
 		} );
 	}
 
-	function loadCSS( name, css ) {
+	function loadCSS( name, css, baseUrl ) {
+		var curBaseURL = null;
+		if( typeof baseUrl !== "undefined" ) {
+			curBaseURL = $('base').attr('href');
+			$( 'base' ).attr( 'href', baseUrl );
+			console.log( 'setting base url to ' + baseUrl );
+		}
 		$( '#' + name ).html( '<style>' + css + '</style>' );
+		if( curBaseURL !== null ) {
+			$( 'base' ).attr( 'href', curBaseURL );
+		}
 	}
 
 	function renderHtml(page) {
