@@ -252,6 +252,13 @@
 
 - Fix saved pages on upgrade from v1.2+
 
+## Android v1.3.1 ##
+
+### Android ###
+
+- Fix for not being able to type full characters in some phones
+- Fix for not being able to type japanese characters in phones
+
 ## Android v1.4beta1 ##
 
 ### Common ###
