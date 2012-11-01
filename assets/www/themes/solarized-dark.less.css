@@ -73,12 +73,9 @@ body.theme-solarized-dark h6 {
 body.theme-solarized-dark a {
   color: #859900;
 }
-body.theme-solarized-dark table {
-  background-color: #073642;
-  color: #fdf6e3;
-  border: none;
-  /* They're defined for the th anyway */
-
+body.theme-solarized-dark .colorOverride {
+  background-color: #073642 !important;
+  color: #fdf6e3 !important;
 }
 body.theme-solarized-dark div.quotebox {
   background-color: #073642 !important;
