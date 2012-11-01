@@ -62,8 +62,14 @@ window.chrome = function() {
 		$("#main").html(page.toHtml());
 
 		chrome.initContentLinkHandlers( $( "#main" ) );
+		scrubInlineStyles( $( "#main" ) );
 		mw.mobileFrontend.references.init($("#main")[0], false, {animation: 'none', onClickReference: onClickReference});
 		handleSectionExpansion();
+	}
+
+	function scrubInlineStyles( $containerElement ) {
+		// Let's start conservatively - scrub background off table, td, th, tr
+		$containerElement.find( 'td[style], table[style], th[style], tr[style]' ).addClass( 'colorOverride' );
 	}
 
 	function populateSection(sectionID) {
@@ -75,6 +81,7 @@ window.chrome = function() {
 				var $el = $( sectionHtml );
 				$contentBlock.append( $el ).data( 'populated', true );
 				chrome.initContentLinkHandlers( $el );
+				scrubInlineStyles( $contentBlock );
 				mw.mobileFrontend.references.init( $contentBlock[0], false, { animation: 'none', onClickReference: onClickReference } );
 				d.resolve();
 			});

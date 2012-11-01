@@ -96,10 +96,9 @@ body.theme-solarized-dark {
 	}
 
 	/* HERE LIE HACKS! */
-	table {
-		background-color: @base02;
-		color: @foreground;
-		border: none; /* They're defined for the th anyway */
+	.colorOverride {
+		background-color: @base02 !important;
+		color: @foreground !important;
 	}
 
 	div.quotebox {
