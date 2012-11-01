@@ -61,7 +61,7 @@ window.chrome = function() {
 		}
 		$("#main").html(page.toHtml());
 
-		chrome.initContentLinkHandlers("#main");
+		chrome.initContentLinkHandlers( $( "#main" ) );
 		mw.mobileFrontend.references.init($("#main")[0], false, {animation: 'none', onClickReference: onClickReference});
 		handleSectionExpansion();
 	}
@@ -72,8 +72,9 @@ window.chrome = function() {
 		var $contentBlock = $(selector);
 		if(!$contentBlock.data('populated')) {
 			app.curPage.requestSectionHtml( sectionID ).done( function( sectionHtml ) {
-				$contentBlock.append( $( sectionHtml ) ).data( 'populated', true );
-				chrome.initContentLinkHandlers( selector );
+				var $el = $( sectionHtml );
+				$contentBlock.append( $el ).data( 'populated', true );
+				chrome.initContentLinkHandlers( $el );
 				mw.mobileFrontend.references.init( $contentBlock[0], false, { animation: 'none', onClickReference: onClickReference } );
 				d.resolve();
 			});
@@ -208,7 +209,7 @@ window.chrome = function() {
 
 	// Bind to links inside reference reveal, handle them properly
 	function onClickReference() {
-		chrome.initContentLinkHandlers( "#mf-references" );
+		chrome.initContentLinkHandlers( $( "#mf-references" ) );
 		if(l10n.isLangRTL(app.curPage.lang)) {
 			$( "#mf-references" ).attr('dir', 'rtl');
 		} else {
@@ -359,8 +360,8 @@ window.chrome = function() {
 		});
 	}
 
-	function initContentLinkHandlers(selector) {
-		$(selector).find('a').unbind('click').bind('click', function(event) {
+	function initContentLinkHandlers( $element ) {
+		$element.find( 'a' ).unbind( 'click' ).bind( 'click', function( event ) {
 			var target = this,
 				url = target.href,             // expanded from relative links for us
 				href = $(target).attr('href'); // unexpanded, may be relative
