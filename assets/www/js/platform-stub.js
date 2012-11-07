@@ -61,7 +61,6 @@ if (platform == 'unknown') {
 			'softkeyboard/softkeyboard.js',
 			'toast/phonegap-toast.js',
 			'share/share.js',
-			'cachemode/cachemode.js',
 			'webintent/webintent.js',
 			'globalization/globalization.js',
 			'preferences/preferences.js'
