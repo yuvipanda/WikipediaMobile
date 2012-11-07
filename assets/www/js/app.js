@@ -92,15 +92,7 @@ window.app = function() {
 			chrome.setSpinningReq(req);
 		}
 
-		if(!navigator.onLine) {
-			app.setCaching(true, function() {
-				console.log("HEYA!");
-				doRequest();
-				app.setCaching(false);
-			});
-		} else {
-			doRequest();
-		}
+		doRequest();
 		return d;
 	}
 
@@ -156,13 +148,6 @@ window.app = function() {
 			curTheme = name;
 			preferencesDB.set( 'theme', name );
 		} );
-	}
-
-	function setCaching(enabled, success) {
-		// Do nothing by default
-		if( typeof success === "function" ) {
-			success();
-		}
 	}
 
 	function navigateTo(title, lang, options) {
@@ -274,7 +259,6 @@ window.app = function() {
 		languageForUrl: languageForUrl,
 		baseUrlForLanguage: baseUrlForLanguage,
 		resourceLoaderURL: resourceLoaderURL,
-		setCaching: setCaching,
 		loadPage: loadPage,
 		loadCachedPage: loadCachedPage, 
 		makeCanonicalUrl: makeCanonicalUrl,
