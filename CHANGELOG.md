@@ -259,6 +259,12 @@
 - Fix for not being able to type full characters in some phones
 - Fix for not being able to type japanese characters in phones
 
+## Android v1.3.2 ##
+
+### Android ###
+
+- Fix for connection issues with Android 2.2
+
 ## Android v1.4beta1 ##
 
 ### Common ###
