@@ -139,7 +139,9 @@ function shareFB() {
 		if(status.status === "connected") {
 			share();
 		} else {
-			window.plugins.FB.login({scope: ""}, share);
+			// "email" needed to make it work on iOS 6, otherwise get FB error 2.
+			// This asks for "basic permissions".
+			window.plugins.FB.login({scope: "email"}, share);
 		}
 	});
 }
