@@ -17,6 +17,9 @@
         console.log("Error ::" + msg + " in " + url + " at line " + linenumber);
       };
     }
+      window.onerror = function (msg,url,linenumber) {
+          console.log("Error ::" + msg + " in " + url + " at line " + linenumber);
+      };
     console.log('Testing console output');
   </script>
 	<script type="text/javascript" charset="utf-8" src="js/lawnchair/Lawnchair.js"></script>
