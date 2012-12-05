@@ -263,7 +263,7 @@
 
 ### Android ###
 
-- Fix for connection issues with Android 2.2
+- Fix for connection issues with Android 2.2 (Move to HTTP)
 
 ## Android v1.4beta1 ##
 
