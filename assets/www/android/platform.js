@@ -2,6 +2,11 @@
 
 // @todo migrate menu setup in here?
 
+// set Android 2.x to HTTP
+if(navigator.userAgent.match(/Android 2/g)) {
+	window.PROTOCOL = 'http';
+}
+//
 // @Override
 // navigator.lang always returns 'en' on Android
 // use the Globalization plugin to request the proper value
