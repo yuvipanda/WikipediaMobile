@@ -67,12 +67,12 @@ header {
 	bottom: 0px;
 	/* See http://stackoverflow.com/questions/7808110/css3-property-webkit-overflow-scrollingtouch-error */
 	-webkit-transform: translate3d(0, 0, 0); 
+	overflow-y: auto;
 }
 
 /* fix for cleaner scrolling on non-android see commit f130a3e3c823309d3e5d8cc57d202e67f3631fce */
 .iOS .scroller {
 	-webkit-overflow-scrolling: touch;
-	overflow-y: auto;
 }
 
 .scroller > * {
@@ -89,10 +89,7 @@ header {
 .android .scroller {
 	/* No bottom toolbar */
 	bottom: 0px;
-}
-
-.winphone .scroller {
-	overflow-y: auto;
+	overflow-y: visible;
 }
 
 #map {
