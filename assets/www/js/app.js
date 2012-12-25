@@ -5,8 +5,11 @@ window.app = function() {
 	function getWikiMetadata() {
 		var d = $.Deferred();
 		if( wikis === null ) {
-			$.get(ROOT_URL + 'wikis.json').done(function(data) {
-				wikis = JSON.parse(data);
+			$.ajax({
+				url: ROOT_URL + 'wikis.json',
+				dataType: 'json'
+			}).done(function(data) {
+				wikis = data;
 				d.resolve(wikis);
 			});
 		} else {

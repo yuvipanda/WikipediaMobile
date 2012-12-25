@@ -122,6 +122,7 @@ window.geo = function() {
 			success: function(data) {
 				success(data);
 			},
+			dataType: 'json',
 			error: error
 		});
 	}
