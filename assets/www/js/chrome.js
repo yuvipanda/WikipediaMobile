@@ -146,7 +146,6 @@ window.chrome = function() {
 					.attr('href', mw.message('page-terms-url').plain())
 					.click(function(event) {
 						// Don't open inside the app. This explodes.
-						alert($(this).attr('href'));
 						chrome.openExternalLink($(this).attr('href'));
 						event.preventDefault();
 					});
@@ -155,7 +154,6 @@ window.chrome = function() {
 					.attr('href', mw.message('page-privacy-url').plain())
 					.click(function(event) {
 						// Don't open inside the app. This explodes.
-						alert($(this).attr('href'));
 						chrome.openExternalLink($(this).attr('href'));
 						event.preventDefault();
 					});
