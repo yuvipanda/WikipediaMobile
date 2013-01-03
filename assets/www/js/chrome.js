@@ -141,6 +141,24 @@ window.chrome = function() {
 				updateMenuState();
 				$("#page-footer-contributors").html(mw.message('page-contributors').plain());
 				$("#page-footer-license").html(mw.message('page-license').plain());
+				$("#page-footer-terms")
+					.text(mw.message('page-terms').plain())
+					.attr('href', mw.message('page-terms-url').plain())
+					.click(function(event) {
+						// Don't open inside the app. This explodes.
+						alert($(this).attr('href'));
+						chrome.openExternalLink($(this).attr('href'));
+						event.preventDefault();
+					});
+				$("#page-footer-privacy")
+					.text(mw.message('page-privacy').plain())
+					.attr('href', mw.message('page-privacy-url').plain())
+					.click(function(event) {
+						// Don't open inside the app. This explodes.
+						alert($(this).attr('href'));
+						chrome.openExternalLink($(this).attr('href'));
+						event.preventDefault();
+					});
 				$("#show-page-history").click(function() {
 					if(app.curPage) {
 						chrome.openExternalLink(app.curPage.getHistoryUrl());
