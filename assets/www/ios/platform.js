@@ -6,7 +6,7 @@ if(navigator.userAgent.match(/OS 4_2/g)) {
 }
 
 function getAboutVersionString() {
-	return "3.3beta1";
+	return "3.3";
 }
 
 (function() {
