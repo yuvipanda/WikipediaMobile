@@ -274,6 +274,13 @@
                     }
                     promise.then(function (langlinks) {
                         var div = document.createElement('div');
+                        if (langlinks.length == 0) {
+                            var button = document.createElement('button'),
+                                command = new WinJS.UI.MenuCommand(button, {
+                                    label: mw.msg('win8-no-langlinks')
+                                });
+                            div.appendChild(button);
+                        }
                         langlinks.forEach(function (langlink) {
                             var lang = langlink.lang,
                                 target = langlink.target,
@@ -376,13 +383,15 @@
                     var langlinks = [];
                     if (data.query && data.query.pages) {
                         $.each(data.query.pages, function (i, page) {
-                            page.langlinks.forEach(function (link) {
-                                langlinks.push({
-                                    lang: link.lang,
-                                    target: link['*'],
-                                    title: link['*']
+                            if (page.langlinks) {
+                                page.langlinks.forEach(function (link) {
+                                    langlinks.push({
+                                        lang: link.lang,
+                                        target: link['*'],
+                                        title: link['*']
+                                    });
                                 });
-                            });
+                            }
                         });
                     }
                     complete(langlinks);
