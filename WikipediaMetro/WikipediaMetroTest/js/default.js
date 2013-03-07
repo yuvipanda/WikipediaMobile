@@ -333,7 +333,7 @@
                     // Have to disable app-wide search to input here
                     Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = false;
                     range = document.body.createTextRange();
-                    // @fixme make a range only within the content area
+                    range.moveToElementText(reader);
                     range.collapse();
                     $('#find-input').focus();
                 });
