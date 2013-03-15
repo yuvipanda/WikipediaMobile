@@ -712,15 +712,31 @@
             request.data.properties.title = title + ' - Wikipedia';
             request.data.properties.description = 'Link to Wikipedia article'; // @fixme l10n
         } else {
-            // Active selection; send the text.
+            // Active selection;
             var range = selection.getRangeAt(0);
             var fragment = range.cloneContents();
+
+            // Add text to the data package
             var text = $(fragment).text();
             request.data.setText(text);
+
+            // Add html to the data package
+            var div = document.createElement("div");
+            div.appendChild(fragment);
+            share.expandURLs(div, baseUrl(state.current().lang), articleUrl(state.current().lang, title));
+            var cfhtml = Windows.ApplicationModel.DataTransfer.HtmlFormatHelper.createHtmlFormat(div.outerHTML);
+            request.data.setHtmlFormat(cfhtml);
             request.data.properties.title = 'Content from ' + title + ' - Wikipedia';
             request.data.properties.description = 'Text from Wikipedia article'; // @fixme l10n
         }
     });
+
+    function baseUrl(lang) {
+        if (typeof lang != 'string') {
+            throw new Error('bad lang input to articleUrl');
+        }
+        return 'https://' + lang + '.wikipedia.org';
+      }
 
     function articleUrl(lang, title) {
         if (typeof title != 'string') {
