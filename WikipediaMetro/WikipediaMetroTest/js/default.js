@@ -869,6 +869,7 @@
         $('#back').hide();
         $('#hub').show();
         $('#offline').hide();
+        $('#find-bar').hide();
         sizeContent();
     }
 
