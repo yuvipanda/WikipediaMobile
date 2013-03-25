@@ -541,7 +541,8 @@
         if (typeof html !== 'string') {
             throw new Error('must be string');
         }
-        //return html.replace(/<[^>]+>/g, ''); // fixme put in real html parser
+        // Strip any JS first for safety
+        html = toStaticHTML(html);
         return $('<div>').html(html).text();
     }
 
@@ -789,25 +790,22 @@
     }
 
     function insertWikiHtml(target, html) {
-        // hack for protocol-relative images (unsafe)
         if (typeof html !== "string") {
             throw new Error('we got a non-string');
         }
-        html = html.replace(/"\/\/upload\.wikimedia\.org/g, '"https://upload.wikimedia.org');
-        var $div = $('<div>');
-        MSApp.execUnsafeLocalFunction(function () {
-            $div.append(html);
-        });
-        /*
+        // Strip any JavaScript that might have made it in.
+        // Some will be harmless bits from MediaWiki, but it's safer to kill them.
+        html = toStaticHTML(html);
+        var $div = $('<div>').append(html);
+
         $div.find('img').each(function () {
-            // hack for protocol-relative images
+            // fixup for protocol-relative images
             var $img = $(this),
                 src = $img.attr('src');
             if (src.substr(0, 2) == '//') {
                 $img.attr('src', 'https:' + src);
             }
         });
-        */
         $div.find('table').each(function () {
             var $table = $(this);
             var $embedded = $table.parent().closest('table');
@@ -1015,6 +1013,8 @@
                 updateLiveTile(mediaWiki.message('win8-tile-featured-article').plain(), txt);
             }
             htmlList.slice(0, 8).forEach(function (html, index) {
+                // Filter for safety
+                html = toStaticHTML(html);
                 var $html = $('<div>').html(html),
                     $links = $html.find('a'),
                     $imgs = $html.find('img'),
@@ -1065,6 +1065,8 @@
             }
             $('#spinner').hide();
             htmlList.slice(0, 6).forEach(function (html, index) {
+                // Filter for safety
+                html = toStaticHTML(html);
                 var $html = $('<div>').html(html),
                     $links = $html.find('a'),
                     $imgs = $html.find('img'),
@@ -1152,7 +1154,8 @@
                 nErrors++;
             }
             if (htmlList.length) {
-                var html = htmlList[0],
+                // Filter for safety
+                var html = toStaticHTML(htmlList[0]),
                     $html = $('<div>').html(html),
                     $lis = $html.find('li');
                 $lis.each(function () {
