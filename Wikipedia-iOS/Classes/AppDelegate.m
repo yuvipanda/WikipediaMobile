@@ -36,6 +36,15 @@
 
 - (id)init
 {
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    NSString *currentUserAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    
+    NSDictionary *userAgentDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%@%@",@"WikipediaMobile/3.2.1 ",currentUserAgent], @"UserAgent", nil];
+    [webView release];
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:userAgentDictionary];
+    [userAgentDictionary release];
+    
     /** If you need to do any extra app-specific initialization, you can do it here
      *  -jm
      **/
