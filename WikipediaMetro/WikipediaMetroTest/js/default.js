@@ -4,6 +4,9 @@
     "use strict";
     var app = WinJS.Application;
 
+    // Required for store validation since r7
+    WinJS.Binding.optimizeBindingReferences = true;
+
     // Set up data bindings for the search results list - empty initial
     WinJS.Namespace.define("SearchResults", {
         itemList: new WinJS.Binding.List([])
