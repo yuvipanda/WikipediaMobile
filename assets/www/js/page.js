@@ -192,7 +192,8 @@
 	};
 
 	Page.prototype.getHistoryUrl = function() {
-		return this.getCanonicalUrl() + "?action=history";
+		// This is uncaught by our intent filters, so will go directly to browser
+		return app.baseUrlForLanguage(this.lang) + "/w/index.php?title=" + encodeURIComponent(this.title.replace(/ /g, '_')) + "&action=history";
 	}
 
 	Page.prototype.getCanonicalUrl = function() {
